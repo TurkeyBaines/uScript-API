@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="Data &amp; Methods">
-    <output-path>$PROJECT_DIR$/out/artifacts/Data___Methods</output-path>
-    <root id="archive" name="Data &amp; Methods.jar">
-      <element id="module-output" name="Data" />
-    </root>
-  </artifact>
-</component>

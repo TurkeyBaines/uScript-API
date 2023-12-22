@@ -14,7 +14,8 @@ public class XPTracker {
         System.out.println("\t\t\t XP Tracker");
         System.out.println("-------------------------------------------");
         System.out.println("\t\t*** Initializing... ***");
-
+        startXP = new int[Skills.values().length];
+        startLvl = new int[Skills.values().length];
         for (int i = 0; i < Skills.values().length; i++) {
             startXP[i] = skills.experience(i);
         }
@@ -38,7 +39,7 @@ public class XPTracker {
         skills = null;
     }
 
-    enum Skills {
+    public enum Skills {
         ATTACK(0),
         DEFENCE(1),
         STRENGTH(2),
