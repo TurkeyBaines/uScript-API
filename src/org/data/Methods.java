@@ -1,6 +1,7 @@
 package org.data;
 
 import net.runelite.api.coords.WorldPoint;
+import org.data.database.Weapons;
 import org.data.database.Widgets;
 import simple.hooks.queries.SimpleEntityQuery;
 import simple.hooks.queries.SimpleItemQuery;
@@ -29,6 +30,7 @@ public class Methods {
             return;
         }
         if (Widgets.x.TELEPORT_MAIN.get() == null) { Widgets.x.TELEPORT_BUTTON.get().click(0); c.sleepCondition(() -> Widgets.x.TELEPORT_MAIN.get().visibleOnScreen(), 2500); }
+
 
         if (Widgets.x.TELEPORT_MAIN.get().getText().equals("Teleport Panel")) {
             char[] l = options.toCharArray();
@@ -84,7 +86,6 @@ public class Methods {
         return false;
     }
 
-
     /*
         Usage:
                 type:
@@ -100,6 +101,7 @@ public class Methods {
                     The text of the interaction, i.e. "Pick up", "Steal", "Talk-to"
                         - this is CaSE-sENsItIvE!
      */
+
     public static void intEntity(int type, int id, String interaction) {
         System.out.println("\t <@unix> \t Methods.intEntity(" + type + ", " + id + ", " + interaction + ")");
         switch (type) {

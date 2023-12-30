@@ -47,6 +47,9 @@ public class Database {
         return new Widgets();
     }
 
+    public static Armour armour() { return new Armour(); }
+
+    public static Weapons weapons() { return new Weapons(); }
 
     public enum areas {
 
