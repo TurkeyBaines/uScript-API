@@ -42,50 +42,6 @@ public class Methods {
 
     }
 
-    public static boolean runRandomCheck() {
-        boolean needsAction = false;
-
-        if (!c.npcs.populate().filter(Database.npcs().PILLORY_GUARD).isEmpty()) {
-            for (SimpleNpc n : c.npcs) {
-                if (n.getInteracting().getName().equals(c.players.getLocal().getName())) {
-                    needsAction = true;
-                }
-            }
-        }
-        if (!needsAction) {
-            return false;
-        }
-
-        if (Widgets.x.NPC_DIALOGUE_MASTER.get() != null) {
-            Widgets.x.NPC_DIALOGUE_CONTINUE.get().click(0);
-            c.sleep(500);
-            System.out.println("\t <@unix> \t {runRandomCheck()} Clicking Continue...");
-            return true;
-        }
-        if (Widgets.x.PLAYER_DIALOGUE_MASTER.get() != null) {
-            Widgets.x.PLAYER_DIALOGUE_CONTINUE.get().click(0);
-            c.sleep(500);
-            System.out.println("\t <@unix> \t {runRandomCheck()} Clicking Continue...");
-            return true;
-        }
-
-        SimpleEntityQuery<SimpleNpc> seq = c.npcs.populate().filter(Database.npcs().PILLORY_GUARD);
-        if (seq.isEmpty()) {
-            System.out.println("\t <@unix> \t {runRandomCheck()} Couldn't find a Pillory Guard!");
-            return true;
-        }
-
-        System.out.println("\t <@unix> \t {runRandomCheck()} We Found A Guard!!");
-        for (SimpleNpc n : seq) {
-            System.out.println("\t\t Interacting With: " + n.getInteracting().getName());
-            if (n.getInteracting().getName().equals(c.players.getLocal().getName())) {
-                Methods.intEntity(1, n.getId(), 500);
-                return true;
-            }
-        }
-        return false;
-    }
-
     /*
         Usage:
                 type:
@@ -505,8 +461,8 @@ public class Methods {
         }
     }
 
-    public static String formatTimeRunning(long st) {
-        long running = System.currentTimeMillis() - st;
+    public static String formatTimeRunning(long start_time) {
+        long running = System.currentTimeMillis() - start_time;
         long millis = running % 1000;
         long second = (running / 1000) % 60;
         long minute = (running / (1000 * 60)) % 60;
@@ -515,8 +471,8 @@ public class Methods {
         return String.format("%02d:%02d:%02d.%d", hour, minute, second, millis);
     }
 
-    public static String formatGained(int sxp, int current) {
-        int gained = current - sxp;
+    public static String formatGained(int start_xp, int current_xp) {
+        int gained = current_xp - start_xp;
         String output = "";
         if (gained > 1000 && gained < 10000) {
             output = String.valueOf(gained).substring(0, 1) + "K";

@@ -1,23 +1,34 @@
 package org.data.database;
 
-public class Runes {
-    public final int FIRE_RUNE = 554;
-    public final int WATER_RUNE = 555;
-    public final int AIR_RUNE = 556;
-    public final int EARTH_RUNE = 557;
-    public final int MIND_RUNE = 558;
-    public final int BODY_RUNE = 559;
-    public final int DEATH_RUNE = 560;
-    public final int NATURE_RUNE = 561;
-    public final int CHAOS_RUNE = 562;
-    public final int LAW_RUNE = 563;
-    public final int COSMIC_RUNE = 564;
-    public final int BLOOD_RUNE = 565;
-    public final int SOUL_RUNE = 566;
-    public final int STEAM_RUNE = 4694;
-    public final int MIST_RUNE = 4695;
-    public final int DUST_RUNE = 4696;
-    public final int SMOKE_RUNE = 4697;
-    public final int MUD_RUNE = 4698;
-    public final int LAVA_RUNE = 4699;
+public enum Runes {
+    FIRE_RUNE(554),
+    WATER_RUNE(555),
+    AIR_RUNE(556),
+    EARTH_RUNE(557),
+    MIND_RUNE(558),
+    BODY_RUNE(559),
+    DEATH_RUNE(560),
+    NATURE_RUNE(561),
+    CHAOS_RUNE(562),
+    LAW_RUNE(563),
+    COSMIC_RUNE(564),
+    BLOOD_RUNE(565),
+    SOUL_RUNE(566),
+    STEAM_RUNE(4694),
+    MIST_RUNE(4695),
+    DUST_RUNE(4696),
+    SMOKE_RUNE(4697),
+    MUD_RUNE(4698),
+    LAVA_RUNE(4699);
+
+    private final int runeId;
+
+    Runes(int runeId) {
+        this.runeId = runeId;
+    }
+
+    public int getRuneId() {
+        return runeId;
+    }
 }
+
