@@ -59,6 +59,23 @@ public class Objects {
             }
         }
 
+        public enum Woodcutting {
+            TREE(1276, 1277, 1278, 1279, 1280),
+            OAK_TREE(4533, 4540),
+            WILLOW_TREE(4534, 4541, 8481, 8482, 8483, 8484, 8485, 8486, 8487, 8488),
+            MAPLE_TREE(4535, 4674, 5126, 8435, 8436, 8437, 8438, 8439, 8440, 8441, 8442, 8443, 8444, 10832, 36681, 36682, 40754, 40755),
+            YEW_TREE(4536, 5121, 8503, 8504, 8505, 8506, 8507, 8508, 8509, 8510, 8511, 8512, 8513),
+            MAGIC_TREE(4537, 5127, 8396, 8397, 8398, 8399, 8400, 8401, 8402, 8403, 8404, 8405, 8406, 8407, 8408, 8409);
+
+            private int[] ids;
+            Woodcutting(int... IDs) {
+                ids = IDs;
+            }
+
+            public int[] getIds() {
+                return ids;
+            }
+        }
 
         public enum Fishing {
             FISHING_NET_BAIT(1518),
