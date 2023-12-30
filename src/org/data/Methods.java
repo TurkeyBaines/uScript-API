@@ -4,11 +4,13 @@ import net.runelite.api.coords.WorldPoint;
 import org.data.database.Widgets;
 import simple.hooks.queries.SimpleEntityQuery;
 import simple.hooks.queries.SimpleItemQuery;
+import simple.hooks.simplebot.Keyboard;
 import simple.hooks.wrappers.SimpleGroundItem;
 import simple.hooks.wrappers.SimpleItem;
 import simple.hooks.wrappers.SimpleNpc;
 import simple.hooks.wrappers.SimpleObject;
 import simple.robot.api.ClientContext;
+import simple.robot.utils.WorldArea;
 
 public class Methods {
 
@@ -19,20 +21,23 @@ public class Methods {
 
     private static ClientContext c = ClientContext.instance();
 
-    public static void teleport(String s) {
+    public static void teleport(String options) {
+        c = ClientContext.instance();
+        if (options.equals("home")) {
+            c.magic.castHomeTeleport();
+            c.sleep(1000);
+            return;
+        }
+        if (Widgets.x.TELEPORT_MAIN.get() == null) { Widgets.x.TELEPORT_BUTTON.get().click(0); c.sleepCondition(() -> Widgets.x.TELEPORT_MAIN.get().visibleOnScreen(), 2500); }
 
-        if (c.widgets.getWidget(1028, 101).visibleOnScreen()) {
-
+        if (Widgets.x.TELEPORT_MAIN.get().getText().equals("Teleport Panel")) {
+            char[] l = options.toCharArray();
+            for (int i = 0; i < l.length; i++) {
+                c.keyboard.clickKey(l[i]);
+                c.sleep(1000);
+            }
         }
 
-        switch (s) {
-            case "home":
-                break;
-
-            case "essence_mine":
-                break;
-
-        }
     }
 
     public static boolean runRandomCheck() {
@@ -107,6 +112,15 @@ public class Methods {
                 if ((sObj = soq.nearest().next()) == null) {
                     return;
                 }
+                if (sObj.visibleOnScreen()) {
+                    sObj.click(interaction);
+                    return;
+                }
+                if (sObj.getLocation().distanceTo(c.players.getLocal().getLocation()) > 8) {
+                    c.pathing.step(sObj.getLocation());
+                    c.sleep(1000);
+                    return;
+                }
                 if (!sObj.visibleOnScreen()) {
                     sObj.turnTo();
                     c.sleepCondition(() -> sObj.visibleOnScreen(), 2500);
@@ -120,6 +134,15 @@ public class Methods {
                 }
                 SimpleNpc sNpc;
                 if ((sNpc = snq.nearest().next()) == null) {
+                    return;
+                }
+                if (sNpc.visibleOnScreen()) {
+                    sNpc.click(interaction);
+                    return;
+                }
+                if (sNpc.getLocation().distanceTo(c.players.getLocal().getLocation()) > 8) {
+                    c.pathing.step(sNpc.getLocation());
+                    c.sleep(1000);
                     return;
                 }
                 if (!sNpc.visibleOnScreen()) {
@@ -148,11 +171,180 @@ public class Methods {
                 if ((sGItm = sgiq.nearest().next()) == null) {
                     return;
                 }
+                if (sGItm.visibleOnScreen()) {
+                    sGItm.click(interaction);
+                    return;
+                }
+                if (sGItm.getLocation().distanceTo(c.players.getLocal().getLocation()) > 8) {
+                    c.pathing.step(sGItm.getLocation());
+                    c.sleep(1000);
+                    return;
+                }
                 if (!sGItm.visibleOnScreen()) {
                     sGItm.turnTo();
                     c.sleepCondition(() -> sGItm.visibleOnScreen(), 2500);
                 }
                 sGItm.click(interaction);
+                break;
+        }
+    }
+
+    public static void intEntity(int type, int id, WorldPoint location) {
+        System.out.println("\t <@unix> \t Methods.intEntity(" + type + ", " + id + ", <Left Click>)");
+        switch (type) {
+            case 0:
+                SimpleEntityQuery<SimpleObject> soq = c.objects.populate().filter(id).filter(location);
+                if (soq.isEmpty()) {
+                    return;
+                }
+                SimpleObject sObj;
+                if ((sObj = soq.nearest().next()) == null) {
+                    return;
+                }
+                if (sObj.getLocation().distanceTo(c.players.getLocal().getLocation()) > 8) {
+                    c.pathing.step(sObj.getLocation());
+                    c.sleep(1000);
+                    return;
+                }
+                if (sObj.visibleOnScreen()) {
+                    sObj.click(0);
+                    return;
+                }
+                if (!sObj.visibleOnScreen()) {
+                    sObj.turnTo();
+                    c.sleepCondition(() -> sObj.visibleOnScreen(), 2500);
+                }
+                sObj.click(0);
+                break;
+            case 1:
+                SimpleEntityQuery<SimpleNpc> snq = c.npcs.populate().filter(id).filter(location);
+                if (snq.isEmpty()) {
+                    return;
+                }
+                SimpleNpc sNpc;
+                if ((sNpc = snq.nearest().next()) == null) {
+                    return;
+                }
+                if (sNpc.visibleOnScreen()) {
+                    sNpc.click(0);
+                    return;
+                }
+                if (sNpc.getLocation().distanceTo(c.players.getLocal().getLocation()) > 8) {
+                    c.pathing.step(sNpc.getLocation());
+                    c.sleep(1000);
+                    return;
+                }
+                if (!sNpc.visibleOnScreen()) {
+                    sNpc.turnTo();
+                    c.sleepCondition(() -> sNpc.visibleOnScreen(), 2500);
+                }
+                sNpc.click(0);
+                break;
+            case 2:
+                System.out.println("You can't filter location on an inventory item you idiot!");
+            case 3:
+                SimpleEntityQuery<SimpleGroundItem> sgiq = c.groundItems.populate().filter(location);
+                if (sgiq.isEmpty()) {
+                    return;
+                }
+                SimpleGroundItem sGItm;
+                if ((sGItm = sgiq.nearest().next()) == null) {
+                    return;
+                }
+                if (sGItm.visibleOnScreen()) {
+                    sGItm.click("Pick-up");
+                    return;
+                }
+                if (sGItm.getLocation().distanceTo(c.players.getLocal().getLocation()) > 8) {
+                    c.pathing.step(sGItm.getLocation());
+                    c.sleep(1000);
+                    return;
+                }
+                if (!sGItm.visibleOnScreen()) {
+                    sGItm.turnTo();
+                    c.sleepCondition(() -> sGItm.visibleOnScreen(), 2500);
+                }
+                sGItm.click("Pick-up");
+                break;
+        }
+    }
+
+    public static void intEntity(int type, int id, WorldArea area) {
+        System.out.println("\t <@unix> \t Methods.intEntity(" + type + ", " + id + ", <Left Click>)");
+        switch (type) {
+            case 0:
+                SimpleEntityQuery<SimpleObject> soq = c.objects.populate().filter(area).filter(id);
+                if (soq.isEmpty()) {
+                    return;
+                }
+                SimpleObject sObj;
+                if ((sObj = soq.nearest().next()) == null) {
+                    return;
+                }
+                if (sObj.getLocation().distanceTo(c.players.getLocal().getLocation()) > 8) {
+                    c.pathing.step(sObj.getLocation());
+                    c.sleep(1000);
+                    return;
+                }
+                if (sObj.visibleOnScreen()) {
+                    sObj.click(0);
+                    return;
+                }
+                if (!sObj.visibleOnScreen()) {
+                    sObj.turnTo();
+                    c.sleepCondition(() -> sObj.visibleOnScreen(), 2500);
+                }
+                sObj.click(0);
+                break;
+            case 1:
+                SimpleEntityQuery<SimpleNpc> snq = c.npcs.populate().filter(id).filter(area);
+                if (snq.isEmpty()) {
+                    return;
+                }
+                SimpleNpc sNpc;
+                if ((sNpc = snq.nearest().next()) == null) {
+                    return;
+                }
+                if (sNpc.visibleOnScreen()) {
+                    sNpc.click(0);
+                    return;
+                }
+                if (sNpc.getLocation().distanceTo(c.players.getLocal().getLocation()) > 8) {
+                    c.pathing.step(sNpc.getLocation());
+                    c.sleep(1000);
+                    return;
+                }
+                if (!sNpc.visibleOnScreen()) {
+                    sNpc.turnTo();
+                    c.sleepCondition(() -> sNpc.visibleOnScreen(), 2500);
+                }
+                sNpc.click(0);
+                break;
+            case 2:
+                System.out.println("You can't filter location on an inventory item you idiot!");
+            case 3:
+                SimpleEntityQuery<SimpleGroundItem> sgiq = c.groundItems.populate().filter(area);
+                if (sgiq.isEmpty()) {
+                    return;
+                }
+                SimpleGroundItem sGItm;
+                if ((sGItm = sgiq.nearest().next()) == null) {
+                    return;
+                }
+                if (sGItm.visibleOnScreen()) {
+                    sGItm.click("Pick-up");
+                    return;
+                }
+                if (sGItm.getLocation().distanceTo(c.players.getLocal().getLocation()) > 8) {
+                    c.pathing.step(sGItm.getLocation());
+                    c.sleep(1000);
+                    return;
+                }
+                if (!sGItm.visibleOnScreen()) {
+                    sGItm.turnTo();
+                    c.sleepCondition(() -> sGItm.visibleOnScreen(), 2500);
+                }
+                sGItm.click("Pick-up");
                 break;
         }
     }
@@ -169,6 +361,15 @@ public class Methods {
                 if ((sObj = soq.nearest().next()) == null) {
                     return;
                 }
+                if (sObj.visibleOnScreen()) {
+                    sObj.click(0);
+                    c.sleep(1000);
+                }
+                if (sObj.getLocation().distanceTo(c.players.getLocal().getLocation()) > 8) {
+                    c.pathing.step(sObj.getLocation());
+                    c.sleep(1000);
+                    return;
+                }
                 if (!sObj.visibleOnScreen()) {
                     sObj.turnTo();
                     c.sleepCondition(() -> sObj.visibleOnScreen(), 2500);
@@ -182,6 +383,15 @@ public class Methods {
                 }
                 SimpleNpc sNpc;
                 if ((sNpc = snq.nearest().next()) == null) {
+                    return;
+                }
+                if (sNpc.visibleOnScreen()) {
+                    sNpc.click(0);
+                    return;
+                }
+                if (sNpc.getLocation().distanceTo(c.players.getLocal().getLocation()) > 8) {
+                    c.pathing.step(sNpc.getLocation());
+                    c.sleep(1000);
                     return;
                 }
                 if (!sNpc.visibleOnScreen()) {
@@ -208,6 +418,14 @@ public class Methods {
                 }
                 SimpleGroundItem sGItm;
                 if ((sGItm = sgiq.nearest().next()) == null) {
+                    return;
+                }
+                if (sGItm.visibleOnScreen()) {
+                    sGItm.click("Pick-up");
+                }
+                if (sGItm.getLocation().distanceTo(c.players.getLocal().getLocation()) > 8) {
+                    c.pathing.step(sGItm.getLocation());
+                    c.sleep(1000);
                     return;
                 }
                 if (!sGItm.visibleOnScreen()) {

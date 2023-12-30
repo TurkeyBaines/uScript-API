@@ -2,6 +2,7 @@ package org.data;
 
 import net.runelite.api.coords.WorldPoint;
 import org.data.database.*;
+import org.data.database.minigames.Wintertodt;
 import simple.robot.api.ClientContext;
 import simple.robot.utils.WorldArea;
 
@@ -99,5 +100,9 @@ public class Database {
 
     public static Animations animations() {
         return new Animations();
+    }
+
+    public static class minigames {
+        public static Wintertodt wintertodt() { return new Wintertodt(); }
     }
 }

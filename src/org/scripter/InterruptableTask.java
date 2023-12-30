@@ -12,6 +12,9 @@ public abstract class InterruptableTask extends Task {
     public int graph;
     public Task previousTask;
 
+    public abstract boolean interruptCondition();
+    public abstract void interruptAction();
+
     @Override
     public abstract void run();
 
@@ -20,11 +23,14 @@ public abstract class InterruptableTask extends Task {
         loc = p.getLocation();
         anim = p.getAnimation();
         graph = p.getGraphic();
+        if (interruptCondition()) {
+            interruptAction();
+        }
         run();
     }
 
     @Override
-    public abstract String name();
+    public abstract String DebugTaskDescription();
 
     public void setPreviousTask(Task t) {
         previousTask = t;

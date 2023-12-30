@@ -22,6 +22,6 @@ public abstract class Task {
         run();
     }
 
-    public abstract String name();
+    public abstract String DebugTaskDescription();
 
 }

@@ -6,8 +6,9 @@ public class Items {
     public final int MARK_OF_GRACE = 11849;
     public final int[] COIN_POUCH = {22521, 22522, 22527, 22531};
 
-    public static final int KNIFE = 946;
-    public static final int HAMMER = 2347;
+    public final int KNIFE = 946;
+    public final int HAMMER = 2347;
+    public final int PESTLE_MORTAR = 233;
 
     public final int[] ROGUES_OUTFIT = {5553, 5554, 5555, 5556, 5557};
 

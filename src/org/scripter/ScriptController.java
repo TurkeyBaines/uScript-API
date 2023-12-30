@@ -16,25 +16,25 @@ public class ScriptController {
     }
 
     public void addTask(String name, Task task) {
-        tasks.put(name, task);
+        tasks.put(name.toLowerCase(), task);
         System.out.println("{ScriptController} - Added Task: " + name);
     }
 
     public void setTask(String name) {
         String curr = "";
         try {
-            curr = currentTask.name();
+            curr = currentTask.DebugTaskDescription();
         } catch (NullPointerException e) {
             curr = "Null";
         }
         System.out.println("{ScriptController} - Setting Task  [" + curr + "] --> [" + name + "]");
-        currentTask = tasks.get(name);
+        currentTask = tasks.get(name.toLowerCase());
     }
 
     public void runTask() {
         String curr = "";
         try {
-            curr = currentTask.name();
+            curr = currentTask.DebugTaskDescription();
         } catch (NullPointerException e) {
             curr = "Null";
         }
@@ -52,13 +52,6 @@ public class ScriptController {
 
     public InterruptableTask getTask(int r, String name) {
         return (InterruptableTask) tasks.get(name);
-    }
-
-    public boolean checkTask(String name) {
-        if (getTask().name().equalsIgnoreCase(name)) {
-            return true;
-        }
-        return false;
     }
 
     public void pause() {

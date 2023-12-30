@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="vulcan-client1">
-    <CLASSES>
-      <root url="jar://$USER_HOME$/.simplebot/assets/vulcan/vulcan-client.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
