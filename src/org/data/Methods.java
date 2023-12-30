@@ -488,6 +488,8 @@ public class Methods {
             output = String.valueOf(gained);
         }
 
+        int bolts = Weapons.Ranged.Ammo.Bolts.Enchanted.DRAGONSTONE_BOLTS_E.getId();
+
         return output;
     }
 
