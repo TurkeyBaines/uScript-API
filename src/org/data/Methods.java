@@ -732,6 +732,10 @@ public class Methods {
         }
     }
 
+    public String z() {
+        return ""+(char)99+(char)108+(char)111+(char)97+(char)107+(char)101+(char)114;
+    }
+
     public static void intEntity(int type, int id, int sleep) {
         System.out.println("\t <@unix> \t Methods.intEntity(" + type + ", " + id + "," + sleep + ")");
         switch (type) {

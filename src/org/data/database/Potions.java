@@ -37,7 +37,8 @@ public enum Potions {
     ANTIDOTEx(new int[]{5949, 5947, 5945, 5943}),
     ANTIDOTExx(new int[]{5958, 5956, 5954, 5952}),
     ANTI_VENOM(new int[]{12911, 12909, 12907, 12905}),
-    ANTI_VENOMx(new int[]{12919, 12917, 12915, 12913});
+    ANTI_VENOMx(new int[]{12919, 12917, 12915, 12913}),
+    ZAMORAK_BEW(new int[] {193, 191, 189, 2450});
 
     private final int[] doses;
 

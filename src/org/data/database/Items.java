@@ -2,18 +2,38 @@ package org.data.database;
 
 public class Items {
 
-    public class General {
-        public final int SPADE = 952;
-        public final int BUCKET = 0;
-        public final int KNIFE = 946;
-        public final int HAMMER = 2347;
+    public enum General {
+        SPADE(952),
+        BUCKET(0),
+        KNIFE(946),
+        HAMMER(2347);
+
+        private final int value;
+
+        General(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 
-    public class Currency {
+    public enum Currency {
+        COINS(995),
+        MARK_OF_GRACE(11849);
 
-        public final int COINS = 995;
-        public final int MARK_OF_GRACE = 11849;
+        private final int value;
+
+        Currency(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
+
 
     public static class Skills {
 
@@ -94,7 +114,8 @@ public class Items {
 
 
         public enum Herblore {
-            PESTLE_MORTER(233);
+            PESTLE_MORTER(233),
+            VIAL_OF_WATER(227);
 
             private final int itemId;
 

@@ -12,6 +12,8 @@ public class Widgets {
         NPC_DIALOGUE_TEXT(321, 6),
         NPC_DIALOGUE_CONTINUE(231, 5),
 
+        MAKE_X(270, 14),
+
         CLAIM_COIN_POUCH_CONTINUE(584, 1),
 
         PLAYER_DIALOGUE_MASTER(217, 4),

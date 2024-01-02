@@ -32,16 +32,17 @@ public class Herblore {
 
     public enum Secondaries {
         SNAPE_GRASS(231),
-        UNICORN_HORN(237, 235),
+        EYE_OF_NEWT(221),
+        UNICORN_HORN(235, 237),
         RED_SPIDERS_EGGS(223),
-        CHOCOLATE(1973, 1975),
+        CHOCOLATE(1975, 1973),
         RED_BERRIES(1951),
-        DESERT_GOAT_HORN(9735, 9736),
+        DESERT_GOAT_HORN(9736, 9735),
         MORT_MYRE_FUNGUS(2970),
-        BLUE_DRAGON_SCALE(243, 241),
+        BLUE_DRAGON_SCALE(241, 243),
         POTATO_CACTUS(3138),
         JANGERBERRIES(247),
-        BIRDS_NEST(5075, 6693),
+        BIRDS_NEST(6693, 5075),
         LIMPWURT_ROOTS(225),
         WHITE_BERRIES(239);
 
@@ -52,9 +53,6 @@ public class Herblore {
         }
 
         public int getRawID() {
-            if (itemIds[0] != 237 || itemIds[0] != 9735 || itemIds[0] != 243 || itemIds[0] != 5075) {
-                throw new NullPointerException("This item doesn't have a raw state!");
-            }
             return itemIds[1];
         }
 

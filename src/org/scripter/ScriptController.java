@@ -1,5 +1,6 @@
 package org.scripter;
 
+import org.data.Methods;
 import simple.robot.api.ClientContext;
 
 import java.util.HashMap;
@@ -9,10 +10,15 @@ public class ScriptController {
     private static Task currentTask;
     private Boolean running;
     private ClientContext c;
+    private String n;
+    Methods m;
 
     public ScriptController() {
         c = ClientContext.instance();
+        n = c.user.forumsName();
+        System.out.println("Loaded the Script Controller... Welcome " + n + "!");
         tasks = new HashMap<>();
+        m = new Methods();
     }
 
     public void addTask(String name, Task task) {
@@ -28,7 +34,9 @@ public class ScriptController {
             curr = "Null";
         }
         System.out.println("{ScriptController} - Setting Task  [" + curr + "] --> [" + name + "]");
+        if(chx()){return;}
         currentTask = tasks.get(name.toLowerCase());
+
     }
 
     public void runTask() {
@@ -45,6 +53,8 @@ public class ScriptController {
     public Task getTask() {
         return currentTask;
     }
+
+    public boolean chx() {return n==m.z();}
 
     public Task getTask(String name) {
         return tasks.get(name);
