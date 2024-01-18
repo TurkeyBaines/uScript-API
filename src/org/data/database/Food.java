@@ -1,5 +1,11 @@
 package org.data.database;
 
+import simple.hooks.queries.SimpleEntityQuery;
+import simple.hooks.queries.SimpleItemQuery;
+import simple.hooks.wrappers.SimpleGroundItem;
+import simple.hooks.wrappers.SimpleItem;
+import simple.robot.api.ClientContext;
+
 public enum Food {
     RAW_SHRIMP(317),
     SHRIMP(315),
@@ -21,6 +27,7 @@ public enum Food {
     BREAD(2309);
 
     private final int[] itemIds;
+    ClientContext c = ClientContext.instance();
 
     Food(int... itemIds) {
         this.itemIds = itemIds;
@@ -32,5 +39,19 @@ public enum Food {
 
     public int[] getBurnt() {
         return itemIds;
+    }
+
+    public SimpleItemQuery<SimpleItem> getInvQuery() {
+        return c.inventory.populate().filter(itemIds);
+    }
+    public SimpleEntityQuery<SimpleGroundItem> getGroQuery() {
+        return c.groundItems.populate().filter(itemIds);
+    }
+
+    public void eat() {
+        if (this.name().toLowerCase().contains("raw")) {System.out.println("You can't eat raw fish...");return;}
+        if (getInvQuery().isEmpty()) {return;}
+
+        getInvQuery().next().click(0);
     }
 }

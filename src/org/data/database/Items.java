@@ -1,36 +1,131 @@
 package org.data.database;
 
+import simple.hooks.queries.SimpleItemQuery;
+import simple.hooks.wrappers.SimpleItem;
+import simple.robot.api.ClientContext;
+
 public class Items {
+    static ClientContext c = ClientContext.instance();
 
     public enum General {
         SPADE(952),
         BUCKET(0),
         KNIFE(946),
+        DWARVEN_ROCK_CAKE(7510),
         HAMMER(2347);
 
-        private final int value;
+        private final int id;
 
-        General(int value) {
-            this.value = value;
+        General(int ID) {
+            this.id = ID;
         }
 
         public int getValue() {
-            return value;
+            return id;
+        }
+
+        public SimpleItemQuery<SimpleItem> getInvQuery() {
+            return c.inventory.populate().filter(id);
+        }
+        public void clickP(String interaction) {
+            if (getInvQuery().isEmpty()) {return;}
+            getInvQuery().next().menuAction(interaction);
+        }
+        public void click(String interaction) {
+            if (getInvQuery().isEmpty()) {return;}
+            getInvQuery().next().click(interaction);
+        }
+        public void click() {
+            if (getInvQuery().isEmpty()) {return;}
+            getInvQuery().next().click(0);
         }
     }
 
     public enum Currency {
         COINS(995),
-        MARK_OF_GRACE(11849);
+        MARK_OF_GRACE(11849),
+        TOKKUL(6529);
 
-        private final int value;
+        private final int id;
 
-        Currency(int value) {
-            this.value = value;
+        Currency(int ID) {
+            this.id = ID;
         }
 
         public int getValue() {
-            return value;
+            return id;
+        }
+
+        public SimpleItemQuery<SimpleItem> getInvQuery() {
+            return c.inventory.populate().filter(id);
+        }
+        public void clickP(String interaction) {
+            if (getInvQuery().isEmpty()) {return;}
+            getInvQuery().next().menuAction(interaction);
+        }
+        public void click(String interaction) {
+            if (getInvQuery().isEmpty()) {return;}
+            getInvQuery().next().click(interaction);
+        }
+        public void click() {
+            if (getInvQuery().isEmpty()) {return;}
+            getInvQuery().next().click(0);
+        }
+    }
+
+    public enum Bones {
+        DRAGON_BONES(536);
+
+        private int id;
+
+        Bones(int ID) {
+            id = ID;
+        }
+
+        public int getID() {
+            return id;
+        }
+
+        public SimpleItemQuery<SimpleItem> getInvQuery() {
+            return c.inventory.populate().filter(id);
+        }
+        public void clickP(String interaction) {
+            if (getInvQuery().isEmpty()) {return;}
+            getInvQuery().next().menuAction(interaction);
+        }
+        public void click(String interaction) {
+            if (getInvQuery().isEmpty()) {return;}
+            getInvQuery().next().click(interaction);
+        }
+        public void click() {
+            if (getInvQuery().isEmpty()) {return;}
+            getInvQuery().next().click(0);
+        }
+    }
+
+    public enum Cannon {
+        BASE(6),
+        STAND(8),
+        BARREL(10),
+        FURNACE(12);
+
+        int id;
+        Cannon(int ID) {id = ID;}
+        public int getID() {return id;}
+        public SimpleItemQuery<SimpleItem> getInvQuery() {
+            return c.inventory.populate().filter(id);
+        }
+        public void clickP(String interaction) {
+            if (getInvQuery().isEmpty()) {return;}
+            getInvQuery().next().menuAction(interaction);
+        }
+        public void click(String interaction) {
+            if (getInvQuery().isEmpty()) {return;}
+            getInvQuery().next().click(interaction);
+        }
+        public void click() {
+            if (getInvQuery().isEmpty()) {return;}
+            getInvQuery().next().click(0);
         }
     }
 
@@ -42,7 +137,15 @@ public class Items {
         }
 
         public enum Woodcutting {
-            AXE(1351, 1349, 1353, 1361, 1355, 1357, 1359, 6739, 20011, 13241);
+            AXE(1351, 1349, 1353, 1361, 1355, 1357, 1359, 6739, 20011, 13241),
+            LOGS(1511),
+            OAK_LOGS(1521),
+            WILLOW_LOGS(),
+            MAPLE_LOGS(),
+            YEW_LOGS(),
+            MAGIC_LOGS(),
+            TEAK_LOGS(6333),
+            MAHOGANY_LOGS(6332);
 
             private final int[] ids;
 
@@ -53,6 +156,56 @@ public class Items {
             public int[] getIds() {
                 return ids;
             }
+
+            public SimpleItemQuery<SimpleItem> getInvQuery() {
+                return c.inventory.populate().filter(ids);
+            }
+            public void clickP(String interaction) {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().menuAction(interaction);
+            }
+            public void click(String interaction) {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().click(interaction);
+            }
+            public void click() {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().click(0);
+            }
+        }
+
+        public enum Construction {
+            SAW(8794),
+            PLANK(960),
+            OAK_PLANK(8778),
+            TEAK_PLANK(8780),
+            MAHOGANY_PLANK(8782);
+
+            int id;
+            Construction(int ID) {
+                id = ID;
+            }
+
+            public int getID() {
+                return id;
+            }
+
+            public SimpleItemQuery<SimpleItem> getInvQuery() {
+                return c.inventory.populate().filter(id);
+            }
+            public void clickP(String interaction) {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().menuAction(interaction);
+            }
+            public void click(String interaction) {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().click(interaction);
+            }
+            public void click() {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().click(0);
+            }
+
         }
 
         public enum Fishing {
@@ -69,6 +222,22 @@ public class Items {
 
             public int getID() {
                 return itemId;
+            }
+
+            public SimpleItemQuery<SimpleItem> getInvQuery() {
+                return c.inventory.populate().filter(itemId);
+            }
+            public void clickP(String interaction) {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().menuAction(interaction);
+            }
+            public void click(String interaction) {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().click(interaction);
+            }
+            public void click() {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().click(0);
             }
         }
 
@@ -110,12 +279,29 @@ public class Items {
             public int getID() {
                 return itemId;
             }
+
+            public SimpleItemQuery<SimpleItem> getInvQuery() {
+                return c.inventory.populate().filter(itemId);
+            }
+            public void clickP(String interaction) {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().menuAction(interaction);
+            }
+            public void click(String interaction) {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().click(interaction);
+            }
+            public void click() {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().click(0);
+            }
         }
 
 
         public enum Herblore {
             PESTLE_MORTER(233),
-            VIAL_OF_WATER(227);
+            VIAL_OF_WATER(227),
+            VIAL(229);
 
             private final int itemId;
 
@@ -125,6 +311,22 @@ public class Items {
 
             public int getID() {
                 return itemId;
+            }
+
+            public SimpleItemQuery<SimpleItem> getInvQuery() {
+                return c.inventory.populate().filter(itemId);
+            }
+            public void clickP(String interaction) {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().menuAction(interaction);
+            }
+            public void click(String interaction) {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().click(interaction);
+            }
+            public void click() {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().click(0);
             }
         }
 
@@ -149,6 +351,22 @@ public class Items {
 
             public int[] getItemIds() {
                 return itemIds;
+            }
+
+            public SimpleItemQuery<SimpleItem> getInvQuery() {
+                return c.inventory.populate().filter(itemIds);
+            }
+            public void clickP(String interaction) {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().menuAction(interaction);
+            }
+            public void click(String interaction) {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().click(interaction);
+            }
+            public void click() {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().click(0);
             }
         }
 

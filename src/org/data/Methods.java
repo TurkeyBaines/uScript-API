@@ -29,14 +29,14 @@ public class Methods {
             c.sleep(1000);
             return;
         }
-        if (Widgets.x.TELEPORT_MAIN.get() == null) { Widgets.x.TELEPORT_BUTTON.get().click(0); c.sleepCondition(() -> Widgets.x.TELEPORT_MAIN.get().visibleOnScreen(), 2500); }
+        if (Widgets.x.TELEPORT_MAIN.get() == null) { Widgets.x.TELEPORT_BUTTON.get().click(0); c.sleepCondition(() -> (Widgets.x.TELEPORT_MAIN.get() != null && Widgets.x.TELEPORT_MAIN.get().visibleOnScreen()), 1000); }
 
 
         if (Widgets.x.TELEPORT_MAIN.get().getText().equals("Teleport Panel")) {
             char[] l = options.toCharArray();
             for (int i = 0; i < l.length; i++) {
                 c.keyboard.clickKey(l[i]);
-                c.sleep(1000);
+                c.sleep(250);
             }
         }
 
@@ -573,8 +573,10 @@ public class Methods {
                     c.sleep(1000);
                 }
                 if (sObj.getLocation().distanceTo(c.players.getLocal().getLocation()) > 8) {
-                    c.pathing.step(sObj.getLocation());
-                    c.sleep(1000);
+                    if (sObj != null && sObj.getLocation() != null) {
+                        c.pathing.step(sObj.getLocation());
+                        c.sleep(1000);
+                    }
                     return;
                 }
                 if (!sObj.visibleOnScreen()) {

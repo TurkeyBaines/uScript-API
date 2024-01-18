@@ -115,9 +115,53 @@ public class Weapons {
             }
         }
 
-        public static class Hasta {}
-        public static class Warhammer {}
-        public static class TwoHSword {}
+        public enum Spear {
+            RUNE_SPEAR(1247);
+
+            int id;
+            Spear(int ID) {
+                id = ID;
+            }
+            public int getID() {
+                return id;
+            }
+        }
+
+        public enum Hasta {}
+        public enum Warhammer {}
+
+        public enum TwoHSword {
+            RUNE_2H_SWORD(1319);
+
+            int id;
+            TwoHSword(int ID) {
+                id = ID;
+            }
+            public int getID() {
+                return id;
+            }
+        }
+
+        public enum Battleaxe {
+            RUNE_BATTLEAXE(1373);
+
+            int id;
+            Battleaxe(int ID) {
+                id = ID;
+            }
+            public int getID() {
+                return id;
+            }
+        }
+
+        public enum Abyssal {
+            DAGGER(13265),
+            WHIP(4151);
+
+            int id;
+            Abyssal(int ID) {id = ID;}
+            public int getID() {return id;}
+        }
     }
 
     public static class Ranged {

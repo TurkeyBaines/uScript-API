@@ -1,5 +1,9 @@
 package org.data.database;
 
+import simple.hooks.queries.SimpleEntityQuery;
+import simple.hooks.wrappers.SimpleNpc;
+import simple.robot.api.ClientContext;
+
 public enum Npcs {
     PILLORY_GUARD(380),
     MAN(3078, 3079, 3080),
@@ -9,12 +13,37 @@ public enum Npcs {
     PALADIN(3105),
     HERO(3106),
     MASTER_FARMER(3257),
-    TORAG(1676),
-    AHRIM(1672),
-    KARIL(1675),
-    DHAROK(1673),
-    GUTHAN(1674),
-    VERAC(1677);
+    SAWMILL_OPERATOR(3101),
+    ABYSSAL_DEMON(415);
+
+    public enum Vyre {
+        X;
+
+        public enum Thieving {
+            ALL(9713, 9692, 9697, 9692);
+
+            int[] npcIds;
+            Thieving(int... IDS) {
+                npcIds = IDS;
+            }
+
+            public SimpleEntityQuery<SimpleNpc> getQuery() {
+                return ClientContext.instance().npcs.populate().filter(npcIds);
+            }
+            public void clickP(String interaction) {
+                if (getQuery().isEmpty()) {return;}
+                getQuery().next().menuAction(interaction);
+            }
+            public void click(String interaction) {
+                if (getQuery().isEmpty()) {return;}
+                getQuery().next().click(interaction);
+            }
+            public void click() {
+                if (getQuery().isEmpty()) {return;}
+                getQuery().next().click(0);
+            }
+        }
+    }
 
     private final int[] npcIds;
 
@@ -28,5 +57,21 @@ public enum Npcs {
 
     public int getID() {
         return npcIds[0];
+    }
+
+    public SimpleEntityQuery<SimpleNpc> getQuery() {
+        return ClientContext.instance().npcs.populate().filter(npcIds);
+    }
+    public void clickP(String interaction) {
+        if (getQuery().isEmpty()) {return;}
+        getQuery().next().menuAction(interaction);
+    }
+    public void click(String interaction) {
+        if (getQuery().isEmpty()) {return;}
+        getQuery().next().click(interaction);
+    }
+    public void click() {
+        if (getQuery().isEmpty()) {return;}
+        getQuery().next().click(0);
     }
 }

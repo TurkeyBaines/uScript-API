@@ -1,5 +1,11 @@
 package org.data.database;
 
+import simple.hooks.queries.SimpleEntityQuery;
+import simple.hooks.queries.SimpleItemQuery;
+import simple.hooks.wrappers.SimpleGroundItem;
+import simple.hooks.wrappers.SimpleItem;
+import simple.robot.api.ClientContext;
+
 public enum Potions {
     PRAYER_POTION(new int[]{143, 141, 139, 2434}),
     RESTORE_POTION(new int[]{131, 129, 127, 2430}),
@@ -38,9 +44,10 @@ public enum Potions {
     ANTIDOTExx(new int[]{5958, 5956, 5954, 5952}),
     ANTI_VENOM(new int[]{12911, 12909, 12907, 12905}),
     ANTI_VENOMx(new int[]{12919, 12917, 12915, 12913}),
-    ZAMORAK_BEW(new int[] {193, 191, 189, 2450});
+    ZAMORAK_BREW(new int[] {193, 191, 189, 2450});
 
     private final int[] doses;
+    ClientContext c = ClientContext.instance();
 
     Potions(int[] doses) {
         this.doses = doses;
@@ -64,6 +71,27 @@ public enum Potions {
 
     public int getOne() {
         return doses[0];
+    }
+
+    public SimpleItemQuery<SimpleItem> getInvQuery() {
+        return c.inventory.populate().filter(doses);
+    }
+    public SimpleEntityQuery<SimpleGroundItem> getGroQuery() {
+        return c.groundItems.populate().filter(doses);
+    }
+
+    public void drink() {
+        if (!c.inventory.populate().filter(getOne()).isEmpty()) {
+            c.inventory.next().menuAction("Drink");
+        } else if (!c.inventory.populate().filter(getTwo()).isEmpty()) {
+            c.inventory.next().menuAction("Drink");
+        } else if (!c.inventory.populate().filter(getThree()).isEmpty()) {
+            c.inventory.next().menuAction("Drink");
+        } else if (!c.inventory.populate().filter(getFour()).isEmpty()) {
+            c.inventory.next().menuAction("Drink");
+        } else {
+            System.out.println("Cant drink " + this.name() + "... There's none in our inventory!");
+        }
     }
 }
 

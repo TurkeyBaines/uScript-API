@@ -3,12 +3,13 @@ package org.scripter;
 import org.data.Methods;
 import simple.robot.api.ClientContext;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ScriptController {
     private static HashMap<String, Task> tasks;
+    private static ArrayList<Task> backgroundTasks;
     private static Task currentTask;
-    private Boolean running;
     private ClientContext c;
     private String n;
     Methods m;
@@ -18,6 +19,7 @@ public class ScriptController {
         n = c.user.forumsName();
         System.out.println("Loaded the Script Controller... Welcome " + n + "!");
         tasks = new HashMap<>();
+        backgroundTasks = new ArrayList<>();
         m = new Methods();
     }
 
@@ -25,6 +27,7 @@ public class ScriptController {
         tasks.put(name.toLowerCase(), task);
         System.out.println("{ScriptController} - Added Task: " + name);
     }
+
 
     public void setTask(String name) {
         String curr = "";
@@ -48,6 +51,10 @@ public class ScriptController {
         }
         System.out.println("{ScriptController} - Running Task [" + curr + "]");
         currentTask.runtime();
+        for (Task t : backgroundTasks) {
+            System.out.println("{ScriptController} - Running Background Task [" + t.DebugTaskDescription() + "]");
+            t.run();
+        }
     }
 
     public Task getTask() {
@@ -64,12 +71,8 @@ public class ScriptController {
         return (InterruptableTask) tasks.get(name);
     }
 
-    public void pause() {
-        running = false;
-    }
-
-    public void play() {
-        running = true;
+    public void addBGTask(Task task) {
+        backgroundTasks.add(task);
     }
 }
 
