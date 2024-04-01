@@ -36,6 +36,7 @@ public enum Food {
     public int getID() {
         return itemIds[0];
     }
+    public int[] getIDs() {return itemIds;}
 
     public int[] getBurnt() {
         return itemIds;
@@ -52,6 +53,6 @@ public enum Food {
         if (this.name().toLowerCase().contains("raw")) {System.out.println("You can't eat raw fish...");return;}
         if (getInvQuery().isEmpty()) {return;}
 
-        getInvQuery().next().click(0);
+        getInvQuery().next().menuAction("Eat");
     }
 }

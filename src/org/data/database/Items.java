@@ -136,6 +136,37 @@ public class Items {
 
         }
 
+        public enum Firemaking {
+            TINDERBOX(590);
+
+            private final int[] ids;
+
+            Firemaking(int... Ids) {
+                ids = Ids;
+            }
+
+            public int[] getIds() {
+                return ids;
+            }
+
+            public SimpleItemQuery<SimpleItem> getInvQuery() {
+                return c.inventory.populate().filter(ids);
+            }
+            public void clickP(String interaction) {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().menuAction(interaction);
+            }
+            public void click(String interaction) {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().click(interaction);
+            }
+            public void click() {
+                if (getInvQuery().isEmpty()) {return;}
+                getInvQuery().next().click(0);
+            }
+
+        }
+
         public enum Woodcutting {
             AXE(1351, 1349, 1353, 1361, 1355, 1357, 1359, 6739, 20011, 13241),
             LOGS(1511),

@@ -16,6 +16,8 @@ public class FightCaves {
 
     private static ClientContext c = ClientContext.instance();
 
+
+
     public enum Areas {
         LOBBY(new WorldArea(new WorldPoint(2432, 5161, 0), new WorldPoint(2456, 5183, 0)));
 
@@ -30,6 +32,8 @@ public class FightCaves {
         public WorldArea get() {
             return area;
         }
+
+        public static ArrayList<WorldPoint> toPaint;
     }
 
     public enum Npcs {
@@ -77,6 +81,11 @@ public class FightCaves {
 
             public void sendP(SimpleNpc npc, String interaction) {
                 npc.menuAction(interaction);
+            }
+
+            public WorldArea getIntArea() {
+                SimpleNpc npc = getQuery().nextNearest();
+                return new WorldArea(new WorldPoint(npc.getLocation().getX() - 2, npc.getLocation().getY() - 2, 0), new WorldPoint(npc.getLocation().getX() + (npc.getNpcDefinitions().getSize() + 2), npc.getLocation().getY() + (npc.getNpcDefinitions().getSize() + 2), 0));
             }
         }
     }
@@ -219,7 +228,7 @@ public class FightCaves {
 
     public static WorldArea getDangerArea() {
         if (getItalyRock() == null) {return null;}
-        return new WorldArea(new WorldPoint(getItalyRock().getX()-17, getItalyRock().getY() - 7, 0), new WorldPoint(getItalyRock().getX()-7, getItalyRock().getY()+5, 0));
+        return new WorldArea(new WorldPoint(getItalyRock().getX()-14, getItalyRock().getY() - 2, 0), new WorldPoint(getItalyRock().getX()-5, getItalyRock().getY()+6, 0));
     }
 
 }

@@ -9,7 +9,8 @@ public class Objects {
     static ClientContext c = ClientContext.instance();
 
     public enum Alters {
-        WILDERNESS(411);
+        WILDERNESS(411),
+        DZONE(31624);
 
         int id;
         Alters(int ID) {
@@ -20,6 +21,23 @@ public class Objects {
             return id;
         }
 
+        public SimpleEntityQuery<SimpleObject> getQuery() {
+            return c.objects.populate().filter(id);
+        }
+
+        public void interact(String interaction) {
+            if (getQuery().isEmpty()) { return; }
+            getQuery().next().click(interaction);
+        }
+        public void click() {
+            if (getQuery().isEmpty()) { return; }
+            getQuery().next().click(0);
+        }
+        public void interactP(String interaction) {
+            if (getQuery().isEmpty()) {return;}
+            getQuery().next().menuAction(interaction);
+        }
+
     }
 
     public static class Banks {
@@ -27,7 +45,24 @@ public class Objects {
         public final int[] BANK_BOOTH = {6943, 6944};
     }
     public static final int TELEPORTER = 35000;
-    public static final int CURSED_ALTER = 126;
+
+    public enum Regen {
+        CURSED_ALTER(126);
+
+        private final int id;
+
+        Regen(int id) {
+            this.id = id;
+        }
+
+        public int getID() {
+            return id;
+        }
+
+        public SimpleEntityQuery<SimpleObject> getQuery() {
+            return c.objects.populate().filter(getID());
+        }
+    }
 
     // BARROWS OBJECTS
 
@@ -77,6 +112,10 @@ public class Objects {
 
             public int getID() {
                 return itemId;
+            }
+
+            public SimpleEntityQuery<SimpleObject> getQuery() {
+                return c.objects.populate().filter(getID());
             }
         }
 
@@ -188,7 +227,53 @@ public class Objects {
 
     }
 
+    public enum Trapdoor {
+        HAM_ENTRANCE(5492);
 
+        int id;
+        Trapdoor(int ID) {id = ID;}
 
+        public SimpleEntityQuery<SimpleObject> getQuery() {
+            return c.objects.populate().filter(id);
+        }
+
+        public void interact(String interaction) {
+            if (getQuery().isEmpty()) { return; }
+            getQuery().next().click(interaction);
+        }
+        public void click() {
+            if (getQuery().isEmpty()) { return; }
+            getQuery().next().click(0);
+        }
+        public void interactP(String interaction) {
+            if (getQuery().isEmpty()) {return;}
+            getQuery().next().menuAction(interaction);
+        }
+    }
+
+    public enum Wilderness {
+        CALVARION_ENTERANCE(46996),
+        CALVARION_EXIT(46925);
+
+        int id;
+        Wilderness(int ID) {id = ID;}
+
+        public SimpleEntityQuery<SimpleObject> getQuery() {
+            return c.objects.populate().filter(id);
+        }
+
+        public void interact(String interaction) {
+            if (getQuery().isEmpty()) { return; }
+            getQuery().next().click(interaction);
+        }
+        public void click() {
+            if (getQuery().isEmpty()) { return; }
+            getQuery().next().click(0);
+        }
+        public void interactP(String interaction) {
+            if (getQuery().isEmpty()) {return;}
+            getQuery().next().menuAction(interaction);
+        }
+    }
 
 }

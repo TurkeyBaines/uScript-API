@@ -1,5 +1,6 @@
 package org.data;
 
+import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import org.data.database.Weapons;
 import org.data.database.Widgets;
@@ -12,6 +13,8 @@ import simple.hooks.wrappers.SimpleNpc;
 import simple.hooks.wrappers.SimpleObject;
 import simple.robot.api.ClientContext;
 import simple.robot.utils.WorldArea;
+
+import java.lang.reflect.Method;
 
 public class Methods {
 
@@ -57,6 +60,28 @@ public class Methods {
                     The text of the interaction, i.e. "Pick up", "Steal", "Talk-to"
                         - this is CaSE-sENsItIvE!
      */
+
+    public static void walk(WorldPoint tile) {
+        ClientContext ctx = ClientContext.instance();
+        LocalPoint localPoint = LocalPoint.fromWorld(ctx.getClient(), tile);
+
+        if (localPoint == null) {
+            ctx.log("Couldn't convert destination point to local");
+            return;
+        }
+        try {
+            Method xM = ctx.getClient().getClass().getMethod("setSelectedSceneTileX", int.class);
+            Method yM = ctx.getClient().getClass().getMethod("setSelectedSceneTileY", int.class);
+            Method walk = ctx.getClient().getClass().getMethod("setViewportWalking", boolean.class);
+
+            xM.invoke(ctx.getClient(), localPoint.getSceneX());
+            yM.invoke(ctx.getClient(), localPoint.getSceneY());
+            walk.invoke(ctx.getClient(), true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public static void intEntity(int type, int id, String interaction) {
         System.out.println("\t <@unix> \t Methods.intEntity(" + type + ", " + id + ", " + interaction + ")");

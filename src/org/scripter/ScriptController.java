@@ -6,7 +6,7 @@ import simple.robot.api.ClientContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ScriptController {
+public class ScriptController implements Runnable {
     private static HashMap<String, Task> tasks;
     private static ArrayList<Task> backgroundTasks;
     private static Task currentTask;
@@ -51,10 +51,6 @@ public class ScriptController {
         }
         System.out.println("{ScriptController} - Running Task [" + curr + "]");
         currentTask.runtime();
-        for (Task t : backgroundTasks) {
-            System.out.println("{ScriptController} - Running Background Task [" + t.DebugTaskDescription() + "]");
-            t.run();
-        }
     }
 
     public Task getTask() {
@@ -73,6 +69,31 @@ public class ScriptController {
 
     public void addBGTask(Task task) {
         backgroundTasks.add(task);
+    }
+
+    @Override
+    public void run() {
+        String curr = "";
+        try {
+            curr = currentTask.DebugTaskDescription();
+        } catch (NullPointerException e) {
+            curr = "Null";
+        }
+        System.out.println("{ScriptController} - Running Task [" + curr + "]");
+        currentTask.runtime();
+        for (Task t : backgroundTasks) {
+            System.out.println("{ScriptController} - Running Background Task [" + t.DebugTaskDescription() + "]");
+            t.run();
+        }
+    }
+
+    public void clean() {
+        currentTask = null;
+        for (Task t : tasks.values()) {
+            tasks.remove(t);
+        }
+        tasks = null;
+
     }
 }
 

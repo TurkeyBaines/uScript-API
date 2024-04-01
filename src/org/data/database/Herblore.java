@@ -32,6 +32,7 @@ public class Herblore {
 
     public enum Secondaries {
         SNAPE_GRASS(231),
+        TOADS_LEGS(2152),
         EYE_OF_NEWT(221),
         UNICORN_HORN(235, 237),
         RED_SPIDERS_EGGS(223),

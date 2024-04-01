@@ -1,6 +1,7 @@
 package org.data.database.pathfinding;
 
 import net.runelite.api.coords.WorldPoint;
+import org.data.Methods;
 import simple.hooks.queries.SimpleEntityQuery;
 import simple.hooks.wrappers.SimpleNpc;
 import simple.hooks.wrappers.SimpleObject;
@@ -18,7 +19,8 @@ import java.util.*;
 
 public class Pathfinder extends Thread {
     private Set<WorldPoint> obstacles;
-    private WorldPoint start, destination;
+    public WorldPoint start, destination;
+    public List<WorldPoint> path;
 
     public Pathfinder(Set<WorldPoint> obstacles, WorldPoint start, WorldPoint destination) {
         this.obstacles = obstacles;
@@ -28,13 +30,14 @@ public class Pathfinder extends Thread {
 
     @Override
     public void run() {
-        List<WorldPoint> path = optimizePath(findPath(start, destination));
-
-        if (!path.isEmpty()) {
+        long pathTimer = System.currentTimeMillis();
+        path = optimizePath(findPath(start, destination));
+        System.out.println((System.currentTimeMillis() - pathTimer) + "ms to generate path");
+        if (path == null || path.isEmpty()) {
+            System.out.println("No path found");
+        } else {
             System.out.println("Path found: " + path);
             walkPath(path);
-        } else {
-            System.out.println("No path found");
         }
     }
 
@@ -85,9 +88,8 @@ public class Pathfinder extends Thread {
         // Assuming your API provides a method to step to a WorldPoint
         for (WorldPoint point : path) {
             // Use your game's pathing API to step to the WorldPoint
-            c.pathing.step(point);
-            c.sleepCondition(() -> c.players.getLocal().getLocation().equals(point), 5000);
-            System.out.println("Walking to: " + point.getX() + ", " + point.getY() + ", Plane: " + point.getPlane());
+            Methods.walk(point);
+            c.sleepCondition(() -> c.players.getLocal().getLocation().equals(point));
         }
     }
 
@@ -172,11 +174,14 @@ public class Pathfinder extends Thread {
 
     private double heuristic(WorldPoint from, WorldPoint to) {
         // Implement a heuristic function (e.g., Euclidean distance) to estimate the remaining distance
+        if (from == null || to == null) {
+            // Handle the case where either from or to is null
+            return Double.MAX_VALUE;
+        }
         double distance = Math.sqrt(Math.pow(to.getX() - from.getX(), 2) + Math.pow(to.getY() - from.getY(), 2));
         System.out.println("Heuristic from " + from + " to " + to + ": " + distance);
         return distance;
     }
-
 
     private static class Node implements Comparable<Node> {
         WorldPoint point;

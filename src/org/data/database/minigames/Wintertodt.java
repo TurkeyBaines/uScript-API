@@ -2,8 +2,8 @@ package org.data.database.minigames;
 
 import net.runelite.api.coords.WorldPoint;
 import simple.hooks.queries.SimpleEntityQuery;
-import simple.hooks.wrappers.SimpleObject;
-import simple.hooks.wrappers.SimpleWidget;
+import simple.hooks.queries.SimpleItemQuery;
+import simple.hooks.wrappers.*;
 import simple.robot.api.ClientContext;
 import simple.robot.utils.WorldArea;
 
@@ -15,17 +15,60 @@ public class Wintertodt {
     public enum Items {
         BRUMA_ROOT(20695),
         BRUMA_KINDLING(20696),
-        REWARDS_CRATE(20703);
+        REWARDS_CRATE(20703),
+        BURNT_PAGES(20718),
+        BRUMA_TORCH(20720),
 
-        private final int itemId;
+        POT_UNF(20697),
+        HERB(20698);
 
-        Items(int itemId) {
-            this.itemId = itemId;
+        private final int id;
+
+        Items(int id) {
+            this.id = id;
         }
 
-        public int getItemId() {
-            return itemId;
+        public int getID() {
+            return id;
         }
+
+        public SimpleItem get() {
+            return getInvQuery().next();
+        }
+
+        public SimpleItemQuery<SimpleItem> getInvQuery() {
+            return ClientContext.instance().inventory.populate().filter(id);
+        }
+
+        public SimpleEntityQuery<SimpleGroundItem> getGroQuery() {
+            return ClientContext.instance().groundItems.populate().filter(id);
+        }
+    }
+
+    public enum Potions {
+        REJUV_POTION(20702, 20701, 20700, 20699);
+
+        int[] ids;
+        Potions(int... ids) {
+            this.ids = ids;
+        }
+
+        public int[] getIDs() {
+            return ids;
+        }
+
+        public SimpleItem get() {
+            return getInvQuery().next();
+        }
+
+        public SimpleItemQuery<SimpleItem> getInvQuery() {
+            return ClientContext.instance().inventory.populate().filter(ids);
+        }
+
+        public SimpleEntityQuery<SimpleGroundItem> getGroQuery() {
+            return ClientContext.instance().groundItems.populate().filter(ids);
+        }
+
     }
 
     /* objects */
@@ -36,31 +79,57 @@ public class Wintertodt {
         BRAZIER_UNLIT(29312),
         BRAZIER_LIT(29314),
         BRAZIER_BROKEN(29313),
-        BRUMA_TREE(29311);
+        BRUMA_TREE(29311),
 
-        private final int objectId;
+        HERB_ROOTS(29315),
 
-        Objects(int objectId) {
-            this.objectId = objectId;
+        HAMMER_BOX(29316),
+        KNIFE_BOX(29317),
+        AXE_BOX(29318),
+        TINDERBOX_BOX(29319),
+        POTION_BOX(29320)
+        ;
+
+        private final int id;
+
+        Objects(int id) {
+            this.id = id;
         }
 
-        public int getObjectId() {
-            return objectId;
+        public int getID() {
+            return id;
+        }
+
+        public SimpleObject get() {
+            return getQuery().next();
+        }
+
+        public SimpleEntityQuery<SimpleObject> getQuery() {
+            return ClientContext.instance().objects.populate().filter(id);
         }
     }
 
     /* npcs */
-    public enum NPCs {
-        PYROMANCER(7371);
+    public enum Npcs {
+        PYROMANCER(7371),
+        DEAD_PYROMANCER(7372);
 
-        private final int npcId;
+        private final int id;
 
-        NPCs(int npcId) {
-            this.npcId = npcId;
+        Npcs(int id) {
+            this.id = id;
         }
 
-        public int getNpcId() {
-            return npcId;
+        public int getID() {
+            return id;
+        }
+
+        public SimpleNpc get() {
+            return getQuery().next();
+        }
+
+        public SimpleEntityQuery<SimpleNpc> getQuery() {
+            return ClientContext.instance().npcs.populate().filter(id);
         }
     }
 
@@ -69,14 +138,14 @@ public class Wintertodt {
     public enum Anims {
         FM_ANIMATION(832);
 
-        private final int animationId;
+        private final int id;
 
-        Anims(int animationId) {
-            this.animationId = animationId;
+        Anims(int id) {
+            this.id = id;
         }
 
-        public int getAnimationId() {
-            return animationId;
+        public int getID() {
+            return id;
         }
     }
 
@@ -87,7 +156,9 @@ public class Wintertodt {
         SAFE_WC_SPOT(new WorldPoint(1622, 3988, 0)),
         WALK_TO_LEAVE(new WorldPoint(1629, 3974, 0)),
         WALK_TO_ENTER(new WorldPoint(1630, 3956, 0)),
-        SNOWFALL_BRAZIER_CHECK(new WorldPoint(1621, 3998, 0));
+        SNOWFALL_BRAZIER_CHECK(new WorldPoint(1621, 3998, 0)),
+        PYRO_CHECK(new WorldPoint(1619, 3996, 0)),
+        HERB_CHECK(new WorldPoint(1611, 4007, 0));
 
         private final WorldPoint worldPoint;
 
@@ -110,14 +181,6 @@ public class Wintertodt {
                 new WorldPoint(1621, 3996, 0),
                 new WorldPoint(1620, 3996, 0)
         }),
-        BRAZIER_SAFE(new WorldPoint[]{
-                new WorldPoint(1618, 3999, 0),
-                new WorldPoint(1618, 3998, 0),
-                new WorldPoint(1618, 3997, 0),
-                new WorldPoint(1622, 3997, 0),
-                new WorldPoint(1621, 3997, 0),
-                new WorldPoint(1620, 3997, 0)
-        }),
         BANK_AREA(new WorldArea(
                 new WorldPoint(1641, 3942, 0),
                 new WorldPoint(1638, 3946, 0)
@@ -133,6 +196,10 @@ public class Wintertodt {
         PRODUCTION(new WorldArea(
                 new WorldPoint(1623, 4000, 0),
                 new WorldPoint(1608, 3987, 0)
+        )),
+        BRAZIER_CHECK(new WorldArea(
+                new WorldPoint(1619, 3996, 0),
+                new WorldPoint(1623, 4000, 0)
         ));
 
         private final WorldPoint[] worldPoints;
@@ -183,30 +250,7 @@ public class Wintertodt {
 
 
     public WorldArea getSnowfallBounds() {
-        if (c.objects.populate().filter(Objects.DEADLY_SNOW.getObjectId()).isEmpty()) {
-            return new WorldArea(new WorldPoint(0, 0, 0), new WorldPoint(0, 0, 0));
-        }
-        WorldPoint centre;
-        WorldArea area;
-        SimpleEntityQuery<SimpleObject> seq = c.objects.populate().filter(Objects.DEADLY_SNOW.getObjectId()).filter(Areas.PRODUCTION.getWorldArea());
-        for (SimpleObject o : seq) {
-            WorldPoint nw = new WorldPoint(o.getLocation().getX() + 2, o.getLocation().getY() + 2, 0);
-            WorldPoint sw = new WorldPoint(o.getLocation().getX() - 2, o.getLocation().getY() - 2, 0);
-            area = new WorldArea(nw, sw);
-            centre = area.getCenterPoint();
-            if (!c.objects.populate().filter(Objects.DEADLY_SNOW.getObjectId()).filter(nw).isEmpty()) {
-                if (!c.objects.populate().filter(Objects.DEADLY_SNOW.getObjectId()).filter(sw).isEmpty()) {
-                    System.out.println("We found the centre point! ");
-                    System.out.println("\t | " + nw.getX() + " | " + nw.getY() + " | " + nw.getPlane() + " |");
-                    System.out.println("\t | " + sw.getX() + " | " + sw.getY() + " | " + sw.getPlane() + " |");
-                    System.out.println("\t | " + centre.getX() + " | " + centre.getY() + " | " + centre.getPlane() + " |");
-                    return new WorldArea(nw, sw);
-                }
-            }
-
-        }
-
-        return new WorldArea(new WorldPoint(0, 0, 0), new WorldPoint(0, 0, 0));
+        return null;
     }
 
 }

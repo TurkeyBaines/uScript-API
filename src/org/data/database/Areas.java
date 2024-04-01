@@ -7,26 +7,111 @@ import simple.robot.utils.WorldArea;
 public class Areas {
 
     public enum Home {
-        BANK_AREA(new WorldArea(new WorldPoint(1949, 3273, 0), new WorldPoint(1962, 3286, 0)));
+        BANK_AREA(new WorldArea(new WorldPoint(1949, 3273, 0), new WorldPoint(1962, 3286, 0))),
+        AFK_AREA(new WorldArea(new WorldPoint(1977, 3295, 0), new WorldPoint(1994, 3312, 0))),
+        REGEN_AREA(new WorldArea(new WorldPoint(1936, 3278, 0), new WorldPoint(1948, 3293, 0))),
+        TASK_AREA(new WorldArea(new WorldPoint(1969, 3303, 0), new WorldPoint(1978, 3313, 0)));
 
         WorldArea area;
         Home(WorldArea Area) {area = Area;}
 
+        public WorldArea get() {return area;}
         public boolean contains(WorldPoint point) {
             return area.containsPoint(point);
         }
     }
 
-    public enum Vyre {
-        PUB(new WorldArea(new WorldPoint(3593, 3386, 0), new WorldPoint(3606, 3397, 0)));
+    public static class Cities {
+        public enum Ardougne {
+            CENTRE(new WorldArea(new WorldPoint(2651, 3294, 0), new WorldPoint(2675, 3320, 0)));
+
+            WorldArea area;
+
+            Ardougne(WorldArea Area) {
+                area = Area;
+            }
+
+            public WorldArea get() {
+                return area;
+            }
+
+            public boolean contains(WorldPoint point) {
+                return area.containsPoint(point);
+            }
+        }
+
+        public enum Lumbridge {
+            COURTYARD(new WorldArea(new WorldPoint(3216, 3209, 0), new WorldPoint(3227, 3228, 0))),
+            FOREST(new WorldArea(new WorldPoint(3160, 3214, 0), new WorldPoint(0, 0, 0))),
+            HAM_ENTRANCE(new WorldArea(new WorldPoint(3161, 3245, 0), new WorldPoint(3168, 3253, 0)));
+
+            WorldArea area;
+
+            Lumbridge(WorldArea Area) {
+                area = Area;
+            }
+
+            public WorldArea get() {
+                return area;
+            }
+
+            public boolean contains(WorldPoint point) {
+                return area.containsPoint(point);
+            }
+        }
+
+        public enum Vyre {
+            PUB(new WorldArea(new WorldPoint(3593, 3386, 0), new WorldPoint(3606, 3397, 0)));
+
+            WorldArea area;
+            Vyre(WorldArea Area) {area = Area;}
+
+            public WorldArea get() {return area;}
+            public boolean contains(WorldPoint point) {
+                return area.containsPoint(point);
+            }
+        }
+
+        public enum AlKharid {
+            OUTSIDE_BANK(new WorldArea(new WorldPoint(3272, 3160, 0), new WorldPoint(3280, 3172, 0))),
+            PALACE(new WorldArea(new WorldPoint(3282, 3159, 0), new WorldPoint(3304, 3178, 0)));
+
+            WorldArea area;
+
+            AlKharid(WorldArea Area) {
+                area = Area;
+            }
+
+            public WorldArea get() {
+                return area;
+            }
+
+            public boolean contains(WorldPoint point) {
+                return area.containsPoint(point);
+            }
+        }
+    }
+
+    public enum Ham_Hideout {
+        ENTRANCE(new WorldArea(new WorldPoint(3143, 9638, 0), new WorldPoint(3161, 9655, 0))),
+        MIDDLE(new WorldArea(new WorldPoint(3154, 9620, 0), new WorldPoint(3177, 9640, 0)));
 
         WorldArea area;
-        Vyre(WorldArea Area) {area = Area;}
+
+        Ham_Hideout(WorldArea Area) {
+            area = Area;
+        }
+
+        public WorldArea get() {
+            return area;
+        }
 
         public boolean contains(WorldPoint point) {
             return area.containsPoint(point);
         }
     }
+
+
 
 
     public enum DZone {
@@ -38,7 +123,7 @@ public class Areas {
         WorldArea area;
         DZone(WorldArea Area) { area = Area; }
 
-        public WorldArea getArea() {return area;}
+        public WorldArea get() {return area;}
         public boolean contains(WorldPoint locatable) {
             if (area.containsPoint(locatable)) {
                 return true;
@@ -64,6 +149,26 @@ public class Areas {
                     return true;
                 }
                 return false;
+            }
+        }
+    }
+
+    public static class Wilderness {
+        public enum Bosses {
+            CALVARION(new WorldArea(new WorldPoint(1877, 11533, 1), new WorldPoint(1896, 11554, 1))),
+            CALVARION_ENT(new WorldArea(new WorldPoint(3177, 3675, 0), new WorldPoint(3183, 3685, 0)));
+
+            WorldArea area;
+            Bosses(WorldArea area) {
+                this.area = area;
+            }
+
+            public WorldArea get() {
+                return area;
+            }
+
+            public boolean contains(WorldPoint point) {
+                return area.containsPoint(point);
             }
         }
     }
