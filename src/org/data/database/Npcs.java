@@ -142,5 +142,35 @@ public class Npcs {
             }
         }
 
+        public enum Instanced {
+            NIGHTMARE(9427);
+
+            int[] ids;
+            Instanced(int... ids) {
+                this.ids = ids;
+            }
+
+            public int[] getIDs() {
+                return ids;
+            }
+
+            public SimpleEntityQuery<SimpleNpc> getQuery() {
+                return ClientContext.instance().npcs.populate().filter(ids);
+            }
+            public void clickP(String interaction) {
+                if (getQuery().isEmpty()) {return;}
+                getQuery().next().menuAction(interaction);
+            }
+            public void click(String interaction) {
+                if (getQuery().isEmpty()) {return;}
+                getQuery().next().click(interaction);
+            }
+            public void click() {
+                if (getQuery().isEmpty()) {return;}
+                getQuery().next().click(0);
+            }
+
+        }
+
     }
 }
