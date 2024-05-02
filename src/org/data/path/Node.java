@@ -2,19 +2,21 @@ package org.data.path;
 
 import net.runelite.api.coords.WorldPoint;
 
-class Node implements Comparable<Node> {
+public class Node implements Comparable<Node> {
     WorldPoint point;
     Node parent;
-    double g, h;
+    double g; // Cost from start
+    double f; // Total cost
 
-    Node(WorldPoint pt, Node parent, double g, double h) {
-        this.point = pt;
+    Node(WorldPoint point, Node parent, double g, double f) {
+        this.point = point;
         this.parent = parent;
         this.g = g;
-        this.h = h;
+        this.f = f;
     }
 
-    public int compareTo(Node other) {
-        return Double.compare(this.g + this.h, other.g + other.h);
+    @Override
+    public int compareTo(Node o) {
+        return Double.compare(this.f, o.f);
     }
 }

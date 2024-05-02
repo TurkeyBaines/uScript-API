@@ -153,6 +153,22 @@ public class Areas {
         }
     }
 
+    public enum Bosses {
+        NIGHTMARE_LOBBY(new WorldArea(new WorldPoint(3795, 9748, 1), new WorldPoint(3820, 9771, 1))),
+        NIGHTMARE(new WorldArea(new WorldPoint(3861, 9940, 3), new WorldPoint(3883, 9962, 3)));
+
+        WorldArea area;
+        Bosses(WorldArea Area) { area = Area; }
+
+        public WorldArea get() {return area;}
+        public boolean contains(WorldPoint locatable) {
+            if (area.containsPoint(locatable)) {
+                return true;
+            }
+            return false;
+        }
+    }
+
     public static class Wilderness {
         public enum Bosses {
             CALVARION(new WorldArea(new WorldPoint(1877, 11533, 1), new WorldPoint(1896, 11554, 1))),
@@ -173,20 +189,5 @@ public class Areas {
         }
     }
 
-    public enum Bosses {
-        NIGHTMARE_LOBBY(new WorldArea(new WorldPoint(3795, 9748, 1), new WorldPoint(3820, 9771, 1))),
-        NIGHTMARE(new WorldArea(new WorldPoint(3861, 9940, 3), new WorldPoint(3883, 9962, 3)));
-
-        WorldArea area;
-        Bosses(WorldArea Area) { area = Area; }
-
-        public WorldArea get() {return area;}
-        public boolean contains(WorldPoint locatable) {
-            if (area.containsPoint(locatable)) {
-                return true;
-            }
-            return false;
-        }
-    }
 
 }
