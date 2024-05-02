@@ -2,7 +2,7 @@ package org.data.path;
 
 import net.runelite.api.coords.WorldPoint;
 import simple.hooks.interfaces.SimpleActor;
-import simple.hooks.wrappers.SimpleNpc;
+import simple.hooks.interfaces.SimpleLocatable;
 import simple.robot.api.ClientContext;
 
 import java.awt.*;
@@ -12,15 +12,15 @@ import java.util.List;
 public class Pathfinder {
     ClientContext c;
 
-    private static final int[][] DIRECTIONS = {{0,1}, {1,0}, {0,-1}, {-1,0}};
-    List<SimpleActor> obstacles;
+    private static final int[][] DIRECTIONS = {{0,1}, {1,0}, {0,-1}, {-1,0}, {1,1}, {-1,1}, {-1,-1}, {1,-1}};
+    List<SimpleLocatable> obstacles;
     WorldPoint target;
     WorldPoint start;
     boolean endReached;
     WorldPoint currentSearchTile;
     WorldPoint currentNeighbourTile;
 
-    public List<WorldPoint> findPath(List<SimpleActor> obstacles, WorldPoint target) {
+    public List<WorldPoint> generate(List<SimpleLocatable> obstacles, WorldPoint target) {
         c = ClientContext.instance();
 
         // Get current player location from game API
@@ -31,16 +31,17 @@ public class Pathfinder {
 
         // Convert obstacles to set for quick lookup
         Set<WorldPoint> blocked = new HashSet<>();
-        for (SimpleActor npc : obstacles) {
-            blocked.add(npc.getLocation());
+        for (SimpleLocatable sl : obstacles) {
+            blocked.add(sl.getLocation());
         }
 
         PriorityQueue<Node> openSet = new PriorityQueue<>();
         Map<WorldPoint, Double> costSoFar = new HashMap<>();
         openSet.add(new Node(start, null, 0, c.pathing.collisionDistance(target)));
         costSoFar.put(start, 0.0);
+        long startTime = System.currentTimeMillis();
 
-        while (!openSet.isEmpty()) {
+        while (!openSet.isEmpty() && (System.currentTimeMillis() - startTime) < 600) {
             Node current = openSet.poll();
             currentSearchTile = current.point;
 
@@ -89,8 +90,8 @@ public class Pathfinder {
         }
 
         if (obstacles != null && !obstacles.isEmpty()) {
-            for (SimpleActor npc : obstacles) {
-                c.paint.drawTileMatrix(g2d, npc.getLocation(), Color.RED);
+            for (SimpleLocatable sl : obstacles) {
+                c.paint.drawTileMatrix(g2d, sl.getLocation(), Color.RED);
             }
         }
     }

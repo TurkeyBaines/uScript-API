@@ -37,7 +37,6 @@ public class ScriptController implements Runnable {
             curr = "Null";
         }
         System.out.println("{ScriptController} - Setting Task  [" + curr + "] --> [" + name + "]");
-        if(chx()){return;}
         currentTask = tasks.get(name.toLowerCase());
 
     }
@@ -56,8 +55,6 @@ public class ScriptController implements Runnable {
     public Task getTask() {
         return currentTask;
     }
-
-    public boolean chx() {return n==m.z();}
 
     public Task getTask(String name) {
         return tasks.get(name);
