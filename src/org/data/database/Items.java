@@ -156,14 +156,7 @@ public class Items {
                 if (getInvQuery().isEmpty()) {return;}
                 getInvQuery().next().menuAction(interaction);
             }
-            public void click(String interaction) {
-                if (getInvQuery().isEmpty()) {return;}
-                getInvQuery().next().click(interaction);
-            }
-            public void click() {
-                if (getInvQuery().isEmpty()) {return;}
-                getInvQuery().next().click(0);
-            }
+            
 
         }
 
@@ -195,14 +188,7 @@ public class Items {
                 if (getInvQuery().isEmpty()) {return;}
                 getInvQuery().next().menuAction(interaction);
             }
-            public void click(String interaction) {
-                if (getInvQuery().isEmpty()) {return;}
-                getInvQuery().next().click(interaction);
-            }
-            public void click() {
-                if (getInvQuery().isEmpty()) {return;}
-                getInvQuery().next().click(0);
-            }
+            
         }
 
         public enum Construction {
@@ -227,14 +213,6 @@ public class Items {
             public void clickP(String interaction) {
                 if (getInvQuery().isEmpty()) {return;}
                 getInvQuery().next().menuAction(interaction);
-            }
-            public void click(String interaction) {
-                if (getInvQuery().isEmpty()) {return;}
-                getInvQuery().next().click(interaction);
-            }
-            public void click() {
-                if (getInvQuery().isEmpty()) {return;}
-                getInvQuery().next().click(0);
             }
 
         }
@@ -262,14 +240,7 @@ public class Items {
                 if (getInvQuery().isEmpty()) {return;}
                 getInvQuery().next().menuAction(interaction);
             }
-            public void click(String interaction) {
-                if (getInvQuery().isEmpty()) {return;}
-                getInvQuery().next().click(interaction);
-            }
-            public void click() {
-                if (getInvQuery().isEmpty()) {return;}
-                getInvQuery().next().click(0);
-            }
+            
         }
 
         public enum Runecrafting {
@@ -318,14 +289,7 @@ public class Items {
                 if (getInvQuery().isEmpty()) {return;}
                 getInvQuery().next().menuAction(interaction);
             }
-            public void click(String interaction) {
-                if (getInvQuery().isEmpty()) {return;}
-                getInvQuery().next().click(interaction);
-            }
-            public void click() {
-                if (getInvQuery().isEmpty()) {return;}
-                getInvQuery().next().click(0);
-            }
+            
         }
 
 
@@ -351,14 +315,7 @@ public class Items {
                 if (getInvQuery().isEmpty()) {return;}
                 getInvQuery().next().menuAction(interaction);
             }
-            public void click(String interaction) {
-                if (getInvQuery().isEmpty()) {return;}
-                getInvQuery().next().click(interaction);
-            }
-            public void click() {
-                if (getInvQuery().isEmpty()) {return;}
-                getInvQuery().next().click(0);
-            }
+            
         }
 
         public enum Hunter {
@@ -391,14 +348,7 @@ public class Items {
                 if (getInvQuery().isEmpty()) {return;}
                 getInvQuery().next().menuAction(interaction);
             }
-            public void click(String interaction) {
-                if (getInvQuery().isEmpty()) {return;}
-                getInvQuery().next().click(interaction);
-            }
-            public void click() {
-                if (getInvQuery().isEmpty()) {return;}
-                getInvQuery().next().click(0);
-            }
+            
         }
 
     }

@@ -90,6 +90,10 @@ public class Areas {
                 return area.containsPoint(point);
             }
         }
+
+        public enum Draynor {
+
+        }
     }
 
     public enum Ham_Hideout {
@@ -110,8 +114,6 @@ public class Areas {
             return area.containsPoint(point);
         }
     }
-
-
 
 
     public enum DZone {

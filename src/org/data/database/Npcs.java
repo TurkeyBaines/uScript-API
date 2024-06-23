@@ -17,7 +17,8 @@ public class Npcs {
             HERO(3295),
             HAM(2540, 2541);
 
-            int[] ids;
+            private int[] ids;
+
             Thieving(int... ids) {
                 this.ids = ids;
             }
@@ -27,7 +28,7 @@ public class Npcs {
             }
 
             public SimpleEntityQuery<SimpleNpc> getQuery() {
-                return ClientContext.instance().npcs.populate().filter(getIDs());
+                return ClientContext.instance().npcs.populate().filter(ids);
             }
         }
     }
@@ -35,7 +36,8 @@ public class Npcs {
     public enum Masters {
         SKILL_MASTER(16380);
 
-        int[] ids;
+        private int[] ids;
+
         Masters(int... ids) {
             this.ids = ids;
         }
@@ -45,7 +47,7 @@ public class Npcs {
         }
 
         public SimpleEntityQuery<SimpleNpc> getQuery() {
-            return ClientContext.instance().npcs.populate().filter(getIDs());
+            return ClientContext.instance().npcs.populate().filter(ids);
         }
     }
 
@@ -55,25 +57,14 @@ public class Npcs {
         public enum Thieving {
             ALL(9713, 9692, 9697, 9692);
 
-            int[] npcIds;
+            private int[] npcIds;
+
             Thieving(int... IDS) {
                 npcIds = IDS;
             }
 
             public SimpleEntityQuery<SimpleNpc> getQuery() {
                 return ClientContext.instance().npcs.populate().filter(npcIds);
-            }
-            public void clickP(String interaction) {
-                if (getQuery().isEmpty()) {return;}
-                getQuery().next().menuAction(interaction);
-            }
-            public void click(String interaction) {
-                if (getQuery().isEmpty()) {return;}
-                getQuery().next().click(interaction);
-            }
-            public void click() {
-                if (getQuery().isEmpty()) {return;}
-                getQuery().next().click(0);
             }
         }
     }
@@ -88,25 +79,12 @@ public class Npcs {
             this.npcId = npcId;
         }
 
-
         public int getID() {
             return npcId;
         }
 
         public SimpleEntityQuery<SimpleNpc> getQuery() {
             return ClientContext.instance().npcs.populate().filter(npcId);
-        }
-        public void clickP(String interaction) {
-            if (getQuery().isEmpty()) {return;}
-            getQuery().next().menuAction(interaction);
-        }
-        public void click(String interaction) {
-            if (getQuery().isEmpty()) {return;}
-            getQuery().next().click(interaction);
-        }
-        public void click() {
-            if (getQuery().isEmpty()) {return;}
-            getQuery().next().click(0);
         }
     }
 
@@ -116,7 +94,8 @@ public class Npcs {
             CALVARION(11993, 11994),
             SKELETAL_HOUNDS(12107, 12108);
 
-            int[] ids;
+            private int[] ids;
+
             Wilderness(int... ids) {
                 this.ids = ids;
             }
@@ -128,24 +107,13 @@ public class Npcs {
             public SimpleEntityQuery<SimpleNpc> getQuery() {
                 return ClientContext.instance().npcs.populate().filter(ids);
             }
-            public void clickP(String interaction) {
-                if (getQuery().isEmpty()) {return;}
-                getQuery().next().menuAction(interaction);
-            }
-            public void click(String interaction) {
-                if (getQuery().isEmpty()) {return;}
-                getQuery().next().click(interaction);
-            }
-            public void click() {
-                if (getQuery().isEmpty()) {return;}
-                getQuery().next().click(0);
-            }
         }
 
         public enum Instanced {
             NIGHTMARE(9427);
 
-            int[] ids;
+            private int[] ids;
+
             Instanced(int... ids) {
                 this.ids = ids;
             }
@@ -157,20 +125,6 @@ public class Npcs {
             public SimpleEntityQuery<SimpleNpc> getQuery() {
                 return ClientContext.instance().npcs.populate().filter(ids);
             }
-            public void clickP(String interaction) {
-                if (getQuery().isEmpty()) {return;}
-                getQuery().next().menuAction(interaction);
-            }
-            public void click(String interaction) {
-                if (getQuery().isEmpty()) {return;}
-                getQuery().next().click(interaction);
-            }
-            public void click() {
-                if (getQuery().isEmpty()) {return;}
-                getQuery().next().click(0);
-            }
-
         }
-
     }
 }

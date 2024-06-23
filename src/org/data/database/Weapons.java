@@ -2,10 +2,6 @@ package org.data.database;
 
 public class Weapons {
 
-    public Melee melee() {
-        return new Melee();
-    }
-
     public static class Melee {
 
         public enum Sword {

@@ -112,19 +112,10 @@ public class Armour {
             return c.equipment.populate().filter(itemId);
         }
 
-
-        public void equip() {
-            if (getInvQuery().isEmpty()) {return;}
-            getInvQuery().next().click(0);
-        }
+        
         public void equipP() {
             if (getInvQuery().isEmpty()) {return;}
             getInvQuery().next().menuAction("Wear");
-        }
-
-        public void unequip() {
-            if (getEquipQuery().isEmpty()) {return;}
-            getEquipQuery().next().click(0);
         }
 
         public void unequipP() {
