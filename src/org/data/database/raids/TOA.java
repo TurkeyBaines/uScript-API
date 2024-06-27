@@ -92,7 +92,8 @@ public class TOA {
 
     public static class Akkha {
         public enum Objects {
-            A(-1);
+            EXIT(46055),
+            CRYSTAL(45866);
 
             int[] id;
             Objects(int... ID) {
@@ -114,8 +115,13 @@ public class TOA {
                 SEAL_OPEN(11707),
                 STATUE_FIRE(45486),
                 STATUE_TAKE(45485),
-                BREAKABLE_WALL(45462),
-                BROKEN_WALL(45466),
+                BREAKABLE_WALL(45462, 45464),
+                BROKEN_WALL(45466, 48460),
+                BARRIER(45135),
+                MIRROR(45455),
+                MIRROR2(45456),
+                EXIT(45128),
+                PICKAXE_HOLDER(45468),
                 SOLID_WALL(45458);
 
                 int[] id;
@@ -136,12 +142,19 @@ public class TOA {
         }
 
         public enum Npcs {
-            ORB_DARK(-1);
+            AKKHA(11789, 11790, 11791, 11792),
+            SHADOW_ALIVE(11797),
+            SHADOW(11798, 11799),
+            ORB_LIGHT(11800),
+            ORB_DARK(11801),
+            ORB_BURN(11802),
+            ORB_FROZEN(11803),
+            ORB_UNSTABLE(11804);
 
-            int id;
-            Npcs(int ID) {id = ID;}
+            int[] id;
+            Npcs(int... ID) {id = ID;}
 
-            public int getID() {return id;}
+            public int[] getIDs() {return id;}
 
             public SimpleNpc get() {
                 return getQuery().nextNearest();
@@ -189,7 +202,7 @@ public class TOA {
 
         public static class Lobby {
             public enum Items {
-                A(-1);
+                MIRROR(27296);
 
                 int id;
                 Items(int ID) {
@@ -458,7 +471,13 @@ public class TOA {
 
     public static class BaBa {
         public enum Objects {
-            EXIT(45128);
+            EXIT(45128),
+            BARRIER(45135),
+            VENT(45499),
+            PILLER(45494),
+            STATUE(45496),
+            POTION_BOX(45498),
+            HAMMER_BOX(45497);
 
             int id;
             Objects(int ID) {
@@ -472,6 +491,110 @@ public class TOA {
 
             public SimpleEntityQuery<SimpleObject> getQuery() {
                 return ClientContext.instance().objects.populate().filter(id);
+            }
+        }
+
+        public enum Items {
+            NEUTRAL_POTION(27297);
+
+            int id;
+            Items(int ID) {
+                id = ID;
+            }
+            public int getID() {return id;}
+
+            public SimpleItem get() {
+                return getQuery().next();
+            }
+
+            public SimpleItemQuery<SimpleItem> getQuery() {
+                return ClientContext.instance().inventory.populate().filter(id);
+            }
+        }
+
+        public enum Npcs {
+            BRAWLER(11709),
+            THROWER(11710, 11713),
+            MAGE(11714, 11711),
+            SHAMAN(11715),
+            VOLATILE(11716),
+            CURSED(11717),
+            THRALL(11718);
+
+            int[] id;
+            Npcs(int... ID) {
+                id = ID;
+            }
+            public int[] getIDs() {return id;}
+
+            public SimpleEntityQuery<SimpleNpc> getQuery() {
+                return ClientContext.instance().npcs.populate().filter(id).filter((n) -> n.getAnimation() != 9755);
+            }
+
+            public SimpleNpc get() {
+                return getQuery().nextNearest();
+            }
+        }
+
+        public enum GraphicsObjects {
+            SKULL(2134);
+
+            int id;
+            GraphicsObjects(int id) {
+                this.id = id;
+            }
+
+            public GraphicsObject get() {
+                for (GraphicsObject go : c.getClient().getGraphicsObjects()) {
+                    if (go == null) { continue; }
+                    if (go.getId() == id) {
+                        return go;
+                    }
+                }
+                return null;
+            }
+
+            public GraphicsObject[] getArray() {
+                ArrayList<GraphicsObject> list = new ArrayList<>();
+                for (GraphicsObject go : c.getClient().getGraphicsObjects()) {
+                    if (go == null) { continue; }
+                    if (go.getId() == id) { list.add(go); }
+                }
+                return list.toArray(new GraphicsObject[list.size()]);
+            }
+        }
+
+        public enum Areas {
+            LOBBY_PRE(new WorldArea(new WorldPoint(Points.LANCHOR().getX(), Points.LANCHOR().getY()-7, Points.LANCHOR().getPlane()),new WorldPoint(Points.LANCHOR().getX()+6, Points.LANCHOR().getY()+7, Points.LANCHOR().getPlane())));
+
+            WorldArea area;
+            Areas(WorldArea area) {
+                this.area = area;
+            }
+
+            public WorldArea get() {
+                return area;
+            }
+            public boolean contains(WorldPoint wp) {
+                return area.containsPoint(wp);
+            }
+        }
+
+        public static class Points {
+            public static WorldPoint LANCHOR() {
+                return Objects.EXIT.get().getLocation();
+            }
+
+            public static WorldPoint VENT() {
+                return new WorldPoint(LANCHOR().getX()+9, LANCHOR().getY()+4, LANCHOR().getPlane());
+            }
+
+            public static WorldPoint PILLAR() {
+                return new WorldPoint(LANCHOR().getX() + 13, LANCHOR().getY()+8, LANCHOR().getPlane());
+            }
+
+            public static WorldPoint BARRIER() {
+                return new WorldPoint(LANCHOR().getX()+5, LANCHOR().getY(), LANCHOR().getPlane());
             }
         }
     }
@@ -777,154 +900,154 @@ public class TOA {
                 return false;
             }
 
-                public int getId() {
-                    return id;
-                }
-            }
-
-            public enum Graphics {
-                SHIT_WARNING(2146),
-                SHIT_POST(245);
-
-                int id;
-
-                Graphics(int id) {
-                    this.id = id;
-                }
-
-                public boolean playerHeld() {
-                    return c.players.getLocal().getGraphic() == id;
-                }
-
-                public boolean npcHeld(SimpleNpc npc) {
-                    return npc.getGraphic() == id;
-                }
-
-                public int getID() {
-                    return id;
-                }
-            }
-
-            public enum Npcs {
-                OBELISK_OFF(11698),
-                OBELISK_ON(11699),
-                KEPHRI(11719, 11720, 11721),
-                KEPHRI_DEAD(11722),
-                SPIRIT(11689),
-                RANGE(11725),
-                MAGE(11726),
-                MELEE(11724);
-
-                int[] id;
-                Npcs(int... ID) {id = ID;}
-
-                public int[] getIDs() {return id;}
-
-                public SimpleNpc get() {
-                    return getQuery().nextNearest();
-                }
-
-                public SimpleEntityQuery<SimpleNpc> getQuery() {
-                    return ClientContext.instance().npcs.populate().filter(id);
-                }
-
-                public void attackP() { getQuery().nextNearest().menuAction("Attack"); }
+            public int getId() {
+                return id;
             }
         }
 
-        public static class Overworld {
+        public enum Graphics {
+            SHIT_WARNING(2146),
+            SHIT_POST(245);
 
-            public enum Objects {
+            int id;
 
-                PATH_HET(46164),
-                PATH_CRONDIS(46161),
-                PATH_SCARABAS(46155, 46157),
-                PATH_APMEKEN(46158),
-
-                EXIT(45128);
-
-                int[] id;
-                Objects(int... ID) {
-                    id = ID;
-                }
-                public int[] getIDs() {return id;}
-
-                public SimpleObject get() {
-                    return getQuery().nextNearest();
-                }
-
-                public SimpleEntityQuery<SimpleObject> getQuery() {
-                    return ClientContext.instance().objects.populate().filter(id);
-                }
-
-                public SimpleObject getOpen() { return getQuery().filter(id[0]).next(); }
-                public SimpleObject getClosed() { return getQuery().filter(id[1]).next(); }
+            Graphics(int id) {
+                this.id = id;
             }
 
-            public static boolean inArea() {
-                return Objects.PATH_APMEKEN.get() != null || Objects.PATH_HET.get() != null || Objects.PATH_CRONDIS.get() != null || Objects.PATH_SCARABAS.get() != null;
+            public boolean playerHeld() {
+                return c.players.getLocal().getGraphic() == id;
             }
 
-        }
+            public boolean npcHeld(SimpleNpc npc) {
+                return npc.getGraphic() == id;
+            }
 
-        public static class Tumeken {
-            public enum Objects {
-                EXIT(45128);
-
-                int id;
-                Objects(int ID) {
-                    id = ID;
-                }
-                public int getID() {return id;}
-
-                public SimpleObject get() {
-                    return getQuery().nextNearest();
-                }
-
-                public SimpleEntityQuery<SimpleObject> getQuery() {
-                    return ClientContext.instance().objects.populate().filter(id);
-                }
+            public int getID() {
+                return id;
             }
         }
 
-        public static class Warden {
-            public enum Objects {
-                EXIT(45128);
+        public enum Npcs {
+            OBELISK_OFF(11698),
+            OBELISK_ON(11699),
+            KEPHRI(11719, 11720, 11721),
+            KEPHRI_DEAD(11722),
+            SPIRIT(11689),
+            RANGE(11725),
+            MAGE(11726),
+            MELEE(11724);
 
-                int id;
-                Objects(int ID) {
-                    id = ID;
-                }
-                public int getID() {return id;}
+            int[] id;
+            Npcs(int... ID) {id = ID;}
 
-                public SimpleObject get() {
-                    return getQuery().nextNearest();
-                }
+            public int[] getIDs() {return id;}
 
-                public SimpleEntityQuery<SimpleObject> getQuery() {
-                    return ClientContext.instance().objects.populate().filter(id);
-                }
+            public SimpleNpc get() {
+                return getQuery().nextNearest();
             }
+
+            public SimpleEntityQuery<SimpleNpc> getQuery() {
+                return ClientContext.instance().npcs.populate().filter(id);
+            }
+
+            public void attackP() { getQuery().nextNearest().menuAction("Attack"); }
+        }
+    }
+
+    public static class Overworld {
+
+        public enum Objects {
+
+            PATH_HET(46164),
+            PATH_CRONDIS(46161),
+            PATH_SCARABAS(46155, 46157),
+            PATH_APMEKEN(46158),
+
+            EXIT(45128);
+
+            int[] id;
+            Objects(int... ID) {
+                id = ID;
+            }
+            public int[] getIDs() {return id;}
+
+            public SimpleObject get() {
+                return getQuery().nextNearest();
+            }
+
+            public SimpleEntityQuery<SimpleObject> getQuery() {
+                return ClientContext.instance().objects.populate().filter(id);
+            }
+
+            public SimpleObject getOpen() { return getQuery().filter(id[0]).next(); }
+            public SimpleObject getClosed() { return getQuery().filter(id[1]).next(); }
         }
 
-
-        public enum Widgets {
-            RAID_LEVEL(481, 42),
-            SOMETHING(481, 46);
-
-            int x, y;
-            Widgets(int X, int Y) {x = X; y = Y;}
-
-
-            public SimpleWidget get() {
-                try {
-                    return ClientContext.instance().widgets.getWidget(x, y);
-                } catch (NullPointerException e) {
-                    System.out.println("Failed to get widget {"+x+","+y+"}");
-                }
-                return null;
-            }
-
+        public static boolean inArea() {
+            return Objects.PATH_APMEKEN.get() != null || Objects.PATH_HET.get() != null || Objects.PATH_CRONDIS.get() != null || Objects.PATH_SCARABAS.get() != null;
         }
 
     }
+
+    public static class Tumeken {
+        public enum Objects {
+            EXIT(45128);
+
+            int id;
+            Objects(int ID) {
+                id = ID;
+            }
+            public int getID() {return id;}
+
+            public SimpleObject get() {
+                return getQuery().nextNearest();
+            }
+
+            public SimpleEntityQuery<SimpleObject> getQuery() {
+                return ClientContext.instance().objects.populate().filter(id);
+            }
+        }
+    }
+
+    public static class Warden {
+        public enum Objects {
+            EXIT(45128);
+
+            int id;
+            Objects(int ID) {
+                id = ID;
+            }
+            public int getID() {return id;}
+
+            public SimpleObject get() {
+                return getQuery().nextNearest();
+            }
+
+            public SimpleEntityQuery<SimpleObject> getQuery() {
+                return ClientContext.instance().objects.populate().filter(id);
+            }
+        }
+    }
+
+
+    public enum Widgets {
+        RAID_LEVEL(481, 42),
+        SOMETHING(481, 46);
+
+        int x, y;
+        Widgets(int X, int Y) {x = X; y = Y;}
+
+
+        public SimpleWidget get() {
+            try {
+                return ClientContext.instance().widgets.getWidget(x, y);
+            } catch (NullPointerException e) {
+                System.out.println("Failed to get widget {"+x+","+y+"}");
+            }
+            return null;
+        }
+
+    }
+
+}
