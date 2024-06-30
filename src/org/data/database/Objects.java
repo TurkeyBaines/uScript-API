@@ -157,6 +157,32 @@ public class Objects {
                 return c.objects.populate().filter(ids);
             }
         }
+
+        public enum Mining {
+            COPPER_ROCK(7453, 7484, 7485),
+            TIN_ROCK(7486, 7487, 7488),
+            IRON_ROCK(7488, 7455, 7456),
+            COAL_ROCK(7456, 7457, 7489),
+            GOLD_ROCK(7458, 7459, 7460),
+            MITHRIL_ROCK(7461, 7462, 7463),
+            ADAMANTITE_ROCK(7464, 7465, 7466),
+            RUNITE_ROCK(7467, 7468, 7469);
+
+            private int[] ids;
+
+            Mining(int... IDs) {
+                this.ids = IDs;
+            }
+
+            public int[] getIDs() {
+                return ids;
+            }
+
+            public SimpleEntityQuery<SimpleObject> getQuery() {
+                return c.objects.populate().filter(ids);
+            }
+        }
+
     }
 
     public enum Cannon {
