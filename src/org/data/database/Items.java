@@ -63,7 +63,7 @@ public class Items {
             this.ids = ids;
         }
 
-        public int[] getIds() {
+        public int[] getIDs() {
             return ids;
         }
 
@@ -116,7 +116,7 @@ public class Items {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -197,7 +197,7 @@ public class Items {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -239,7 +239,7 @@ public class Items {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -280,7 +280,7 @@ public class Items {
                         this.id = id;
                     }
 
-                    public int getId() {
+                    public int getID() {
                         return id;
                     }
 
@@ -319,7 +319,7 @@ public class Items {
                         this.id = id;
                     }
 
-                    public int getId() {
+                    public int getID() {
                         return id;
                     }
 
@@ -358,7 +358,7 @@ public class Items {
                         this.id = id;
                     }
 
-                    public int getId() {
+                    public int getID() {
                         return id;
                     }
 
@@ -397,7 +397,7 @@ public class Items {
                         this.id = id;
                     }
 
-                    public int getId() {
+                    public int getID() {
                         return id;
                     }
 
@@ -430,7 +430,7 @@ public class Items {
                         this.id = id;
                     }
 
-                    public int getId() {
+                    public int getID() {
                         return id;
                     }
 
@@ -462,7 +462,7 @@ public class Items {
                         this.id = id;
                     }
 
-                    public int getId() {
+                    public int getID() {
                         return id;
                     }
 
@@ -502,7 +502,7 @@ public class Items {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -544,7 +544,7 @@ public class Items {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -578,7 +578,7 @@ public class Items {
                 ids = Ids;
             }
 
-            public int[] getIds() {
+            public int[] getIDs() {
                 return ids;
             }
 
@@ -616,7 +616,7 @@ public class Items {
                 this.ids = ids;
             }
 
-            public int[] getIds() {
+            public int[] getIDs() {
                 return ids;
             }
 
@@ -639,6 +639,7 @@ public class Items {
             }
 
             public enum Axes {
+                ALL(1351, 1349, 1353, 1361, 1355, 1357, 1359, 6739, 20011, 13241),
                 BRONZE_AXE(1351),
                 IRON_AXE(1349),
                 STEEL_AXE(1353),
@@ -650,13 +651,17 @@ public class Items {
                 THIRD_AGE_AXE(20011),
                 INFERNAL_AXE(13241);
 
-                private final int id;
+                private final int[] id;
 
-                Axes(int id) {
+                Axes(int... id) {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
+                    return id[0];
+                }
+
+                public int[] getIDs() {
                     return id;
                 }
 
@@ -743,7 +748,7 @@ public class Items {
                 this.id = id;
             }
 
-            public int getId() {
+            public int getID() {
                 return id;
             }
 
@@ -873,7 +878,7 @@ public class Items {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -911,7 +916,7 @@ public class Items {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -957,7 +962,7 @@ public class Items {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -1021,7 +1026,7 @@ public class Items {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -1057,7 +1062,7 @@ public class Items {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -1125,7 +1130,7 @@ public class Items {
                 this.id = id;
             }
 
-            public int getId() {
+            public int getID() {
                 return id;
             }
 
@@ -1250,8 +1255,8 @@ public class Items {
 
 
             }
-            public enum Tools {
-                COAL_BAG(12019),
+            public enum Pickaxe {
+                ALL(1265, 1267, 12297, 1269, 1273, 1271, 1275, 11920, 1265, 20014, 13243, 23680),
                 BRONZE_PICKAXE(1265),
                 IRON_PICKAXE(1267),
                 BLACK_PICKAXE(12297),
@@ -1265,13 +1270,16 @@ public class Items {
                 INFERNAL_PICKAXE(13243),
                 CRYSTAL_PICKAXE(23680);
 
-                int id;
-                Tools(int id) {
+                int[] id;
+                Pickaxe(int... id) {
                     this.id = id;
                 }
 
-                public int getID() {
+                public int[] getIDs() {
                     return id;
+                }
+                public int getID() {
+                    return id[0];
                 }
 
                 public SimpleItemQuery<SimpleItem> getInvQuery() {
@@ -1292,7 +1300,7 @@ public class Items {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -1334,7 +1342,7 @@ public class Items {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -1376,7 +1384,7 @@ public class Items {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -1422,7 +1430,7 @@ public class Items {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -1465,7 +1473,7 @@ public class Items {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -1509,7 +1517,7 @@ public class Items {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 

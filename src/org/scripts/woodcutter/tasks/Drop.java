@@ -9,7 +9,7 @@ public class Drop extends Task {
 
     @Override
     public void run() {
-        int[] woodcuttingAxes = Items.Skills.Woodcutting.AXE.getIds(); // grabs a list of all the woodcutting axes id's
+        int[] woodcuttingAxes = Items.Skills.Woodcutting.Axes.ALL.getIDs(); // grabs a list of all the woodcutting axes id's
 
         if (c.inventory.populate().omit(woodcuttingAxes).size() > 0) { // check the size of the inventory if we ignore axes, if it's greater than 0, we need to drop!
             SimpleItem logs = c.inventory.populate().omit(woodcuttingAxes).next();
