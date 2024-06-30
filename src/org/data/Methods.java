@@ -3,7 +3,6 @@ package org.data;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.callback.ClientThread;
-import org.data.database.Weapons;
 import org.data.database.Widgets;
 import simple.hooks.queries.SimpleEntityQuery;
 import simple.hooks.queries.SimpleItemQuery;
@@ -108,8 +107,6 @@ public class Methods {
         } else {
             output = String.valueOf(gained);
         }
-
-        int bolts = Weapons.Ranged.Ammo.Bolts.Enchanted.DRAGONSTONE_BOLTS_E.getId();
 
         return output;
     }
