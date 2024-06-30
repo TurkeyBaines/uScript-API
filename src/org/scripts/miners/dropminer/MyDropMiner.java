@@ -53,7 +53,4 @@ public class MyDropMiner extends Script {
         return scriptController;
     }
 
-    @Subscribe
-    public void onGameObjectSpawned(GameObjectSpawned object) {
-    }
 }
