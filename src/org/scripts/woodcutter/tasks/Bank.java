@@ -7,7 +7,7 @@ import org.scripts.woodcutter.MyWoodcutter;
 public class Bank extends Task {
     @Override
     public void run() {
-        int[] woodcuttingAxes = Items.Skills.Woodcutting.AXE.getIds(); // grabs a list of all the woodcutting axes id's
+        int[] woodcuttingAxes = Items.Skills.Woodcutting.Axes.ALL.getIDs(); // grabs a list of all the woodcutting axes id's
 
         /*
         * I always start my Bank Task with a check to see if the bank is open or not

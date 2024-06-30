@@ -68,11 +68,11 @@ public class Items {
         }
 
         public SimpleItemQuery<SimpleItem> getInvQuery() {
-            return c.inventory.populate().filter(getIds());
+            return c.inventory.populate().filter(getIDs());
         }
 
         public SimpleEntityQuery<SimpleGroundItem> getGroQuery() {
-            return c.groundItems.populate().filter(getIds());
+            return c.groundItems.populate().filter(getIDs());
         }
 
         public void click(String interaction) {
