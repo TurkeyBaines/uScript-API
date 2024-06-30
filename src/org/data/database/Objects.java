@@ -159,14 +159,14 @@ public class Objects {
         }
 
         public enum Mining {
-            COPPER_ROCK(7453, 7484, 7485),
-            TIN_ROCK(7486, 7487, 7488),
-            IRON_ROCK(7488, 7455, 7456),
-            COAL_ROCK(7456, 7457, 7489),
-            GOLD_ROCK(7458, 7459, 7460),
-            MITHRIL_ROCK(7461, 7462, 7463),
-            ADAMANTITE_ROCK(7464, 7465, 7466),
-            RUNITE_ROCK(7467, 7468, 7469);
+            COPPER_ROCK(10943, 11161, 11162, 11552, 11553, 11554),
+            TIN_ROCK(11360, 11361, 11362, 11555, 11556, 11557),
+            IRON_ROCK(11364, 11365, 11366, 7455, 7456),
+            COAL_ROCK(11367, 11368, 11369, 7456, 7489),
+            GOLD_ROCK(11370, 11371, 11372, 7458, 7459, 7460),
+            MITHRIL_ROCK(11373, 11374, 11375, 7461, 7462, 7463),
+            ADAMANTITE_ROCK(11376, 11377, 11378, 7464, 7465, 7466),
+            RUNITE_ROCK(11379, 11380, 11381, 7467, 7468, 7469);
 
             private int[] ids;
 
@@ -182,6 +182,7 @@ public class Objects {
                 return c.objects.populate().filter(ids);
             }
         }
+
 
     }
 
