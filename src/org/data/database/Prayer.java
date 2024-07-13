@@ -6,36 +6,50 @@ import simple.robot.script.Script;
 
 public enum Prayer {
 
-    CHIVALRY(35455010, "<col=ff9040>Chivalry</col>"),
-    PIETY(35455011, "<col=ff9040>Piety</col>"),
-    PROTECT_FROM_MELEE(35454999, "<col=ff9040>Protect from Melee</col>"),
-    PROTECT_FROM_RANGE(35454998, "<col=ff9040>Protect from Missiles</col>"),
-    PROTECT_FROM_MAGIC(35454997, "<col=ff9040>Protect from Magic</col>");
+    THICK_SKIN(35454985, "Thick Skin"),
+    BURST_OF_STRENGTH(35454986, "Burst of Strength"),
+    CLARITY_OF_THOUGHT(35454987, "Clarity of Thought"),
+    SHARP_EYE(35455003, "Sharp Eye"),
+    MYSTIC_WILL(35455006, "Mystic Will"),
+
+    DEF_MED(35454988, "Rock Skin"),
+    STR_MED(35454989, "Superhuman Strength"),
+    IMPROVED_REFLEXES(35454990, "Improved Reflexes"),
+    HAWK_EYE(35455004, "Hawk Eye"),
+    MYSTIC_LORE(35455007, "Mystic Lore"),
+
+    STEEL_SKIN(35454994, "Steel Skin"),
+    ULTIMATE_STRENGTH(35454995, "Ultimate Strength"),
+    INCREDIBLE_REFLEXES(35454996, "Incredible Reflexes"),
+    EAGLE_EYE(35455005, "Eagle Eye"),
+    MYSTIC_MIGHT(35455008, "Mystic Might"),
+
+    RAPID_RESTORE(35454991, "Rapid Restore"),
+    RAPID_HEAL(35454992, "Rapid Heal"),
+
+    PROTECT_ITEM(35454993, "Protect Item"),
+
+    CHIVALRY(35455010, "Chivalry"),
+    PIETY(35455011, "Piety"),
+    RIGOUR(35455009, "Rigour"),
+    AUGURY(35455012, "Augury"),
+
+    PROTECT_FROM_MELEE(35454999, "Protect from Melee"),
+    PROTECT_FROM_RANGE(35454998, "Protect from Missiles"),
+    PROTECT_FROM_MAGIC(35454997, "Protect from Magic");
 
     int param1;
     String target;
     Prayer(int PARAM1, String TARGET) {param1 = PARAM1; target = TARGET;}
 
-    public void enable() {
-        ClientContext c = ClientContext.instance();
-        if (this.name().toLowerCase().contains("melee")) { c.prayers.prayer(SimplePrayers.Prayers.PROTECT_FROM_MELEE, true); }
-        if (this.name().toLowerCase().contains("range")) { c.prayers.prayer(SimplePrayers.Prayers.PROTECT_FROM_MISSILES, true); }
-        if (this.name().toLowerCase().contains("magic")) { c.prayers.prayer(SimplePrayers.Prayers.PROTECT_FROM_MAGIC, true); }
-    }
     public void enableP() {
         ClientContext c = ClientContext.instance();
-        c.menuActions.sendAction(57, -1, param1, 1, "Activate", target);
+        c.menuActions.sendAction(57, -1, param1, 1, "Activate", "<col=ff9040>" + target + "</col>");
     }
 
-    public void disable() {
-        ClientContext c = ClientContext.instance();
-        if (this.name().toLowerCase().contains("melee")) { c.prayers.prayer(SimplePrayers.Prayers.PROTECT_FROM_MELEE, false); }
-        if (this.name().toLowerCase().contains("range")) { c.prayers.prayer(SimplePrayers.Prayers.PROTECT_FROM_MISSILES, false); }
-        if (this.name().toLowerCase().contains("magic")) { c.prayers.prayer(SimplePrayers.Prayers.PROTECT_FROM_MAGIC, false); }
-    }
     public void disableP() {
         ClientContext c = ClientContext.instance();
-        c.menuActions.sendAction(57, -1, param1, 1, "Deactivate", target);
+        c.menuActions.sendAction(57, -1, param1, 1, "Deactivate",  "<col=ff9040>" + target + "</col>");
     }
 
 }
