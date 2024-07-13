@@ -12,8 +12,8 @@ public enum Prayer {
     SHARP_EYE(35455003, "Sharp Eye"),
     MYSTIC_WILL(35455006, "Mystic Will"),
 
-    DEF_MED(35454988, "Rock Skin"),
-    STR_MED(35454989, "Superhuman Strength"),
+    ROCK_SKIN(35454988, "Rock Skin"),
+    SUPERHUMAN_STRENGTH(35454989, "Superhuman Strength"),
     IMPROVED_REFLEXES(35454990, "Improved Reflexes"),
     HAWK_EYE(35455004, "Hawk Eye"),
     MYSTIC_LORE(35455007, "Mystic Lore"),
