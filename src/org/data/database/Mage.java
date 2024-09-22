@@ -320,5 +320,239 @@ public class Mage {
         }
     }
 
+    public enum Hood {
+        GHOSTLY_HOOD(5525),
+        MYSTIC_HOOD(4099),
+        AHRIMS_HOOD(4708),
+        ANCESTRAL_HAT(21018),
+        INFERNAL_HOOD(21282),
+        THIRD_AGE_HAT(10350), // Corrected item
+        ELDER_CHAOS_HOOD(20595); // Added Elder Chaos Hood
+
+        private final int id;
+
+        Hood(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public SimpleItemQuery<SimpleItem> getInvQuery() {
+            return ClientContext.instance().inventory.populate().filter(id);
+        }
+
+        public SimpleEntityQuery<SimpleGroundItem> getGroQuery() {
+            return ClientContext.instance().groundItems.populate().filter(id);
+        }
+
+        public SimpleItemQuery<SimpleItem> getEquipQuery() {
+            return ClientContext.instance().equipment.populate().filter(id);
+        }
+
+        public void equip() {
+            if (getInvQuery().isEmpty()) {
+                return;
+            }
+            getInvQuery().next().menuAction("Wear");
+        }
+
+        public void unequip() {
+            if (getEquipQuery().isEmpty()) {
+                return;
+            }
+            getEquipQuery().next().menuAction("Remove");
+        }
+    }
+
+    public enum RobeTops {
+        GHOSTLY_ROBE_TOP(6107),
+        MYSTIC_ROBE_TOP(4091),
+        AHRIMS_ROBE_TOP(4712),
+        ANCESTRAL_ROBE_TOP(21021),
+        VOID_KNIGHT_TOP(8839),
+        THIRD_AGE_ROBE_TOP(10338), // Correct item
+        ZAMORAK_MONK_ROBE_TOP(1033), // Correct item
+        ELDER_CHAOS_ROBE_TOP(20517); // Added Elder Chaos Robe Top
+
+        private final int id;
+
+        RobeTops(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public SimpleItemQuery<SimpleItem> getInvQuery() {
+            return ClientContext.instance().inventory.populate().filter(id);
+        }
+
+        public SimpleEntityQuery<SimpleGroundItem> getGroQuery() {
+            return ClientContext.instance().groundItems.populate().filter(id);
+        }
+
+        public SimpleItemQuery<SimpleItem> getEquipQuery() {
+            return ClientContext.instance().equipment.populate().filter(id);
+        }
+
+        public void equip() {
+            if (getInvQuery().isEmpty()) {
+                return;
+            }
+            getInvQuery().next().menuAction("Wear");
+        }
+
+        public void unequip() {
+            if (getEquipQuery().isEmpty()) {
+                return;
+            }
+            getEquipQuery().next().menuAction("Remove");
+        }
+    }
+
+    public enum RobeBottoms {
+        GHOSTLY_ROBE_BOTTOM(6108),
+        MYSTIC_ROBE_BOTTOM(4093),
+        AHRIMS_ROBE_SKIRT(4714),
+        ANCESTRAL_ROBE_BOTTOM(21024),
+        VOID_KNIGHT_ROBE(8840),
+        THIRD_AGE_ROBE_BOTTOM(10340),
+        ZAMORAK_MONK_ROBE_BOTTOM(1035), // Corrected naming
+        ELDER_CHAOS_ROBE_BOTTOM(20520); // Added Elder Chaos Robe Bottom
+
+        private final int id;
+
+        RobeBottoms(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public SimpleItemQuery<SimpleItem> getInvQuery() {
+            return ClientContext.instance().inventory.populate().filter(id);
+        }
+
+        public SimpleEntityQuery<SimpleGroundItem> getGroQuery() {
+            return ClientContext.instance().groundItems.populate().filter(id);
+        }
+
+        public SimpleItemQuery<SimpleItem> getEquipQuery() {
+            return ClientContext.instance().equipment.populate().filter(id);
+        }
+
+        public void equip() {
+            if (getInvQuery().isEmpty()) {
+                return;
+            }
+            getInvQuery().next().menuAction("Wear");
+        }
+
+        public void unequip() {
+            if (getEquipQuery().isEmpty()) {
+                return;
+            }
+            getEquipQuery().next().menuAction("Remove");
+        }
+    }
+
+    public enum Gloves {
+        GHOSTLY_GLOVES(6109),
+        MYSTIC_GLOVES(4095),
+        VOID_KNIGHT_GLOVES(8842),
+        BARROWS_GLOVES(7462),
+        DARK_MYSTIC_GLOVES(4101),
+        LIGHT_MYSTIC_GLOVES(4103),
+        ELDER_CHAOS_GLOVES(20595); // Added Elder Chaos Gloves
+
+        private final int id;
+
+        Gloves(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public SimpleItemQuery<SimpleItem> getInvQuery() {
+            return ClientContext.instance().inventory.populate().filter(id);
+        }
+
+        public SimpleEntityQuery<SimpleGroundItem> getGroQuery() {
+            return ClientContext.instance().groundItems.populate().filter(id);
+        }
+
+        public SimpleItemQuery<SimpleItem> getEquipQuery() {
+            return ClientContext.instance().equipment.populate().filter(id);
+        }
+
+        public void equip() {
+            if (getInvQuery().isEmpty()) {
+                return;
+            }
+            getInvQuery().next().menuAction("Wear");
+        }
+
+        public void unequip() {
+            if (getEquipQuery().isEmpty()) {
+                return;
+            }
+            getEquipQuery().next().menuAction("Remove");
+        }
+    }
+
+    public enum Boots {
+        MYSTIC_BOOTS(4097),
+        INFINITY_BOOTS(6920),
+        ETERNAL_BOOTS(13235),
+        WIZARD_BOOTS(2579),
+        ELDER_CHAOS_BOOTS(20517), // Added Elder Chaos Boots
+        BOOTS_OF_LIGHTNESS(88),
+        GHOSTLY_BOOTS(6106),
+        IMBUED_WIZARD_BOOTS(11732); // Imbued version of Wizard Boots from Bounty Hunter
+
+        private final int id;
+
+        Boots(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public SimpleItemQuery<SimpleItem> getInvQuery() {
+            return ClientContext.instance().inventory.populate().filter(id);
+        }
+
+        public SimpleEntityQuery<SimpleGroundItem> getGroQuery() {
+            return ClientContext.instance().groundItems.populate().filter(id);
+        }
+
+        public SimpleItemQuery<SimpleItem> getEquipQuery() {
+            return ClientContext.instance().equipment.populate().filter(id);
+        }
+
+        public void equip() {
+            if (getInvQuery().isEmpty()) {
+                return;
+            }
+            getInvQuery().next().menuAction("Wear");
+        }
+
+        public void unequip() {
+            if (getEquipQuery().isEmpty()) {
+                return;
+            }
+            getEquipQuery().next().menuAction("Remove");
+        }
+    }
+
+
 }
 
