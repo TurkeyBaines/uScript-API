@@ -1,5 +1,6 @@
 package org.data.database.raids;
 
+import com.google.common.collect.Lists;
 import net.runelite.api.Deque;
 import net.runelite.api.GraphicsObject;
 import net.runelite.api.coords.WorldPoint;
@@ -472,12 +473,14 @@ public class TOA {
     public static class BaBa {
         public enum Objects {
             EXIT(45128),
+            ENTRY(45500),
             BARRIER(45135),
             VENT(45499),
             PILLER(45494),
             STATUE(45496),
             POTION_BOX(45498),
-            HAMMER_BOX(45497);
+            HAMMER_BOX(45497),
+            CRYSTAL(45754);
 
             int id;
             Objects(int ID) {
@@ -513,13 +516,18 @@ public class TOA {
         }
 
         public enum Npcs {
-            BRAWLER(11709),
+            BRAWLER(11709, 11712),
             THROWER(11710, 11713),
             MAGE(11714, 11711),
             SHAMAN(11715),
             VOLATILE(11716),
             CURSED(11717),
-            THRALL(11718);
+            THRALL(11718),
+            BOULDER_BREAK(11783),
+            BOULDER_SOLID(11782),
+            BABA_GROUND(11778),
+            BABA_RANGE(11780),
+            RUBBLE(11784);
 
             int[] id;
             Npcs(int... ID) {
@@ -528,7 +536,7 @@ public class TOA {
             public int[] getIDs() {return id;}
 
             public SimpleEntityQuery<SimpleNpc> getQuery() {
-                return ClientContext.instance().npcs.populate().filter(id).filter((n) -> n.getAnimation() != 9755);
+                return ClientContext.instance().npcs.populate().filter(id).filter((n) -> n != null && !n.isDead() && n.getHealth() > 0);
             }
 
             public SimpleNpc get() {
@@ -537,11 +545,17 @@ public class TOA {
         }
 
         public enum GraphicsObjects {
-            SKULL(2134);
+            SKULL(2134),
+            RUBBLE_ROCK(2250),
+            DEATH_ATTACK(1448);
 
             int id;
             GraphicsObjects(int id) {
                 this.id = id;
+            }
+
+            public int getID() {
+                return id;
             }
 
             public GraphicsObject get() {
@@ -561,6 +575,34 @@ public class TOA {
                     if (go.getId() == id) { list.add(go); }
                 }
                 return list.toArray(new GraphicsObject[list.size()]);
+            }
+
+            public ArrayList<GraphicsObject> getList() {
+                ArrayList<GraphicsObject> list = new ArrayList<>();
+                for (GraphicsObject go : c.getClient().getGraphicsObjects()) {
+                    if (go == null) { continue; }
+                    if (go.getId() == id) { list.add(go); }
+                }
+                return list;
+            }
+
+            public ArrayList<WorldPoint> getDeathZone(ClientContext c) {
+                WorldPoint centre = c.players.getLocal().getLocation();
+                int startX = centre.getX()-2;
+                int startY = centre.getY()-2;
+                int endX = centre.getX()+2;
+                int endY = centre.getY()+2;
+                ArrayList<WorldPoint> tiles = new ArrayList<>();
+                for (int x = startX; x <= endX; x++) {
+                    for (int y = startY; y <= endY; y++) {
+                        tiles.add(new WorldPoint(x, y, centre.getPlane()));
+                    }
+                }
+                tiles.add(new WorldPoint(centre.getX()-3, centre.getY(), centre.getPlane()));
+                tiles.add(new WorldPoint(centre.getX()+3, centre.getY(), centre.getPlane()));
+                tiles.add(new WorldPoint(centre.getX(), centre.getY()-3, centre.getPlane()));
+                tiles.add(new WorldPoint(centre.getX(), centre.getY()+3, centre.getPlane()));
+                return tiles;
             }
         }
 
