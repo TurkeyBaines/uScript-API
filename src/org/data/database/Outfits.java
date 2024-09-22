@@ -46,7 +46,7 @@ public class Outfits {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -85,7 +85,7 @@ public class Outfits {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -124,7 +124,7 @@ public class Outfits {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -163,7 +163,7 @@ public class Outfits {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -203,7 +203,7 @@ public class Outfits {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -242,7 +242,7 @@ public class Outfits {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -283,7 +283,7 @@ public class Outfits {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -322,7 +322,7 @@ public class Outfits {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -361,7 +361,130 @@ public class Outfits {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
+            return id;
+        }
+
+        public SimpleItemQuery<SimpleItem> getInvQuery() {
+            return ClientContext.instance().inventory.populate().filter(id);
+        }
+
+        public SimpleEntityQuery<SimpleGroundItem> getGroQuery() {
+            return ClientContext.instance().groundItems.populate().filter(id);
+        }
+
+        public SimpleItemQuery<SimpleItem> getEquipQuery() {
+            return ClientContext.instance().equipment.populate().filter(id);
+        }
+
+        public void equip() {
+            if (getInvQuery().isEmpty()) { return; }
+            getInvQuery().next().menuAction("Wear");
+        }
+
+        public void unequip() {
+            if (getEquipQuery().isEmpty()) { return; }
+            getEquipQuery().next().menuAction("Remove");
+        }
+    }
+
+    public enum Desert {
+        TOP(1833),
+        BOTTOMS(1835);
+
+        private final int id;
+
+        Desert(int id) {
+            this.id = id;
+        }
+
+        public int getID() {
+            return id;
+        }
+
+        public SimpleItemQuery<SimpleItem> getInvQuery() {
+            return ClientContext.instance().inventory.populate().filter(id);
+        }
+
+        public SimpleEntityQuery<SimpleGroundItem> getGroQuery() {
+            return ClientContext.instance().groundItems.populate().filter(id);
+        }
+
+        public SimpleItemQuery<SimpleItem> getEquipQuery() {
+            return ClientContext.instance().equipment.populate().filter(id);
+        }
+
+        public void equip() {
+            if (getInvQuery().isEmpty()) { return; }
+            getInvQuery().next().menuAction("Wear");
+        }
+
+        public void unequip() {
+            if (getEquipQuery().isEmpty()) { return; }
+            getEquipQuery().next().menuAction("Remove");
+        }
+    }
+
+    public enum Ham {
+        HAM_HOOD(4302),
+        HAM_CLOAK(4304),
+        HAM_LOGO(4306),
+        HAM_GLOVES(4308),
+        HAM_ROBE(4310),
+        HAM_BOOTS(4312),
+        HAM_SHIRT(4314);
+
+        private final int id;
+
+        Ham(int id) {
+            this.id = id;
+        }
+
+        public int getID() {
+            return id;
+        }
+
+        public SimpleItemQuery<SimpleItem> getInvQuery() {
+            return ClientContext.instance().inventory.populate().filter(id);
+        }
+
+        public SimpleEntityQuery<SimpleGroundItem> getGroQuery() {
+            return ClientContext.instance().groundItems.populate().filter(id);
+        }
+
+        public SimpleItemQuery<SimpleItem> getEquipQuery() {
+            return ClientContext.instance().equipment.populate().filter(id);
+        }
+
+        public void equip() {
+            if (getInvQuery().isEmpty()) { return; }
+            getInvQuery().next().menuAction("Wear");
+        }
+
+        public void unequip() {
+            if (getEquipQuery().isEmpty()) { return; }
+            getEquipQuery().next().menuAction("Remove");
+        }
+    }
+
+    public enum ClueItems {
+        BLUE_GNOME_SHIRT(640),
+
+        GREEN_GNOME_HAT(658),
+        GREEN_GNOME_TOP(638),
+        GREEN_GNOME_BOTTOMS(648),
+
+        CREAM_GNOME_TOP(642),
+
+        STAFF(1379);
+
+        private final int id;
+
+        ClueItems(int id) {
+            this.id = id;
+        }
+
+        public int getID() {
             return id;
         }
 
