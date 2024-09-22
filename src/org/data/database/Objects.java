@@ -32,8 +32,6 @@ public class Objects {
         public static final int[] BANK_BOOTH = {6943, 6944};
     }
 
-    public static final int TELEPORTER = 35000;
-
     public enum Regen {
         CURSED_ALTER(126);
 
@@ -116,7 +114,8 @@ public class Objects {
             OAK_DINING_TABLE(13294),
             CARVED_OAK_TABLE(13295),
             TEAK_DINING_TABLE(13296),
-            MAHOGANY_DINING_TABLE(13298);
+            MAHOGANY_DINING_TABLE(13298),
+            EASY_STASH(28971);
 
             private int id;
 
@@ -241,6 +240,28 @@ public class Objects {
 
         public SimpleEntityQuery<SimpleObject> getQuery() {
             return c.objects.populate().filter(id);
+        }
+    }
+
+    public enum Teleportation {
+        TELEPORTER(35000),
+        FAIRY_RING(29500, 29501, 29502, 29513, 29529, 29533);
+
+        private int[] ids;
+
+        Teleportation(int... ID) {
+            this.ids = ID;
+        }
+
+        public int[] getIDs() {
+            return ids;
+        }
+        public int getID() {
+            return ids[0];
+        }
+
+        public SimpleEntityQuery<SimpleObject> getQuery() {
+            return c.objects.populate().filter(ids);
         }
     }
 }
