@@ -11,9 +11,12 @@ public class Items {
 
     public enum General {
         SPADE(952),
-        BUCKET(0),
+        ROPE(954),
+        BUCKET(1925),
+        BUCKET_OF_WATER(1929),
         KNIFE(946),
         DWARVEN_ROCK_CAKE(7510),
+        WHITE_APRON(1005),
         HAMMER(2347);
 
         private final int id;
@@ -22,7 +25,7 @@ public class Items {
             this.id = ID;
         }
 
-        public int getValue() {
+        public int getID() {
             return id;
         }
 
@@ -1272,6 +1275,26 @@ public class Items {
 
                 int[] id;
                 Pickaxe(int... id) {
+                    this.id = id;
+                }
+
+                public int[] getIDs() {
+                    return id;
+                }
+                public int getID() {
+                    return id[0];
+                }
+
+                public SimpleItemQuery<SimpleItem> getInvQuery() {
+                    return c.inventory.populate().filter(getID());
+                }
+            }
+
+            public enum Util {
+                COAL_BAG(12019);
+
+                int[] id;
+                Util(int... id) {
                     this.id = id;
                 }
 
