@@ -26,7 +26,7 @@ public class Melee {
             this.itemId = itemId;
         }
 
-        public int getId() {
+        public int getID() {
             return itemId;
         }
 
@@ -74,7 +74,7 @@ public class Melee {
             this.itemId = itemId;
         }
 
-        public int getId() {
+        public int getID() {
             return itemId;
         }
 
@@ -122,7 +122,7 @@ public class Melee {
             this.itemId = itemId;
         }
 
-        public int getId() {
+        public int getID() {
             return itemId;
         }
 
@@ -170,7 +170,7 @@ public class Melee {
             this.itemId = itemId;
         }
 
-        public int getId() {
+        public int getID() {
             return itemId;
         }
 
@@ -218,7 +218,7 @@ public class Melee {
             this.itemId = itemId;
         }
 
-        public int getId() {
+        public int getID() {
             return itemId;
         }
 
@@ -266,7 +266,7 @@ public class Melee {
             this.itemId = itemId;
         }
 
-        public int getId() {
+        public int getID() {
             return itemId;
         }
 
@@ -310,7 +310,7 @@ public class Melee {
             this.itemId = itemId;
         }
 
-        public int getId() {
+        public int getID() {
             return itemId;
         }
 
@@ -353,7 +353,7 @@ public class Melee {
             this.itemId = itemId;
         }
 
-        public int getId() {
+        public int getID() {
             return itemId;
         }
 
@@ -397,7 +397,7 @@ public class Melee {
             this.itemId = itemId;
         }
 
-        public int getId() {
+        public int getID() {
             return itemId;
         }
 
@@ -435,7 +435,7 @@ public class Melee {
             this.itemId = itemId;
         }
 
-        public int getId() {
+        public int getID() {
             return itemId;
         }
 
@@ -479,7 +479,7 @@ public class Melee {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -527,7 +527,7 @@ public class Melee {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -572,7 +572,7 @@ public class Melee {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -622,7 +622,7 @@ public class Melee {
             this.pxxId = pxxId;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -671,7 +671,7 @@ public class Melee {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -699,7 +699,14 @@ public class Melee {
     }
 
     public enum TwoHSword {
-        RUNE_2H_SWORD(1319);
+        BRONZE_2H_SWORD(1307),
+        IRON_2H_SWORD(1309),
+        STEEL_2H_SWORD(1311),
+        BLACK_2H_SWORD(1313),
+        MITHRIL_2H_SWORD(1315),
+        ADAMANT_2H_SWORD(1317),
+        RUNE_2H_SWORD(1319),
+        DRAGON_2H_SWORD(7158);
 
         private final int id;
         ClientContext c = ClientContext.instance();
@@ -708,7 +715,7 @@ public class Melee {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -745,7 +752,7 @@ public class Melee {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -783,7 +790,7 @@ public class Melee {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -827,7 +834,7 @@ public class Melee {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -872,7 +879,7 @@ public class Melee {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
