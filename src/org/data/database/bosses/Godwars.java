@@ -72,7 +72,7 @@ public class Godwars {
 
     public enum Objects {
         BANDOS_DOOR(26503),
-        BANDOS_ALTER(26423);
+        BANDOS_ALTER(26366);
 
         int id;
         Objects(int ID) {id = ID;}
@@ -128,19 +128,20 @@ public class Godwars {
     }
 
     public static class Strategies {
-        public static class Six_Zero {
-            public static WorldPoint[] getWorldPoints() {
-                ClientContext c = ClientContext.instance();
-                WorldPoint base = Objects.BANDOS_DOOR.getQuery().next().getLocation();
-                WorldPoint start = new WorldPoint(base.getX()+9, base.getY()-2, base.getPlane());
-                WorldPoint first = new WorldPoint(base.getX()+1, base.getY()-3, base.getPlane());
-                WorldPoint second = new WorldPoint(base.getX()+1, base.getY()+6, base.getPlane());
-                WorldPoint third = new WorldPoint(base.getX()+1, base.getY()+15, base.getPlane());
-                WorldPoint forth = new WorldPoint(base.getX()+13, base.getY()+11, base.getPlane());
-                WorldPoint fifth = new WorldPoint(base.getX()+13, base.getY()+3, base.getPlane());
-                WorldPoint sixth = new WorldPoint(base.getX()+13, base.getY()-3, base.getPlane());
+        public static class Bandos {
+            public static class Six_Zero {
+                public static WorldPoint[] getWorldPoints(WorldPoint base) {
+                    ClientContext c = ClientContext.instance();
+                    WorldPoint start = new WorldPoint(base.getX() + 9, base.getY() - 2, base.getPlane());
+                    WorldPoint first = new WorldPoint(base.getX() + 1, base.getY() - 3, base.getPlane());
+                    WorldPoint second = new WorldPoint(base.getX() + 1, base.getY() + 6, base.getPlane());
+                    WorldPoint third = new WorldPoint(base.getX() + 1, base.getY() + 15, base.getPlane());
+                    WorldPoint forth = new WorldPoint(base.getX() + 13, base.getY() + 11, base.getPlane());
+                    WorldPoint fifth = new WorldPoint(base.getX() + 13, base.getY() + 3, base.getPlane());
+                    WorldPoint sixth = new WorldPoint(base.getX() + 13, base.getY() - 3, base.getPlane());
 
-                return new WorldPoint[]{start, first,second,third,forth,fifth,sixth};
+                    return new WorldPoint[]{start, first, second, third, forth, fifth, sixth};
+                }
             }
         }
     }
