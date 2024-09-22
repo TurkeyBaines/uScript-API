@@ -26,7 +26,7 @@ public class Range {
                 this.id = id;
             }
 
-            public int getId() {
+            public int getID() {
                 return id;
             }
 
@@ -70,7 +70,7 @@ public class Range {
                 this.id = id;
             }
 
-            public int getId() {
+            public int getID() {
                 return id;
             }
 
@@ -113,7 +113,7 @@ public class Range {
                 this.id = id;
             }
 
-            public int getId() {
+            public int getID() {
                 return id;
             }
 
@@ -156,7 +156,7 @@ public class Range {
                 this.id = id;
             }
 
-            public int getId() {
+            public int getID() {
                 return id;
             }
 
@@ -194,7 +194,7 @@ public class Range {
                 this.id = id;
             }
 
-            public int getId() {
+            public int getID() {
                 return id;
             }
 
@@ -242,7 +242,7 @@ public class Range {
                 this.pId = pId;
             }
 
-            public int getId() {
+            public int getID() {
                 return id;
             }
 
@@ -290,7 +290,7 @@ public class Range {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -336,7 +336,7 @@ public class Range {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -382,7 +382,7 @@ public class Range {
                     this.id = id;
                 }
 
-                public int getId() {
+                public int getID() {
                     return id;
                 }
 
@@ -429,7 +429,7 @@ public class Range {
                         this.id = id;
                     }
 
-                    public int getId() {
+                    public int getID() {
                         return id;
                     }
 
@@ -475,7 +475,7 @@ public class Range {
                         this.id = id;
                     }
 
-                    public int getId() {
+                    public int getID() {
                         return id;
                     }
 
@@ -518,7 +518,7 @@ public class Range {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -565,7 +565,7 @@ public class Range {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -607,7 +607,7 @@ public class Range {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -650,7 +650,7 @@ public class Range {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -692,7 +692,7 @@ public class Range {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -706,6 +706,53 @@ public class Range {
 
         public SimpleItemQuery<SimpleItem> getEquipQuery() {
             return c.equipment.populate().filter(id);
+        }
+
+        public void equip() {
+            if (getInvQuery().isEmpty()) { return; }
+            getInvQuery().next().menuAction("Wield");
+        }
+
+        public void unequip() {
+            if (getEquipQuery().isEmpty()) { return; }
+            getEquipQuery().next().menuAction("Remove");
+        }
+    }
+
+    public enum Coif {
+        COIF(1169),
+        SNAKESKIN_COIF(6326),
+        GREEN_DHIDE_COIF(1099),
+        BLUE_DHIDE_COIF(2487),
+        RED_DHIDE_COIF(2493),
+        BLACK_DHIDE_COIF(2509),
+        ARMADYL_COIF(11826),
+        BANDOS_COIF(19440),
+        ANCIENT_COIF(19437),
+        VOID_KNIGHT_RANGER_HELM(11664),
+        KARILS_COIF(4732),
+        THIRD_AGE_RANGE_COIF(10334);
+
+        private final int id;
+
+        Coif(int id) {
+            this.id = id;
+        }
+
+        public int getID() {
+            return id;
+        }
+
+        public SimpleItemQuery<SimpleItem> getInvQuery() {
+            return ClientContext.instance().inventory.populate().filter(id);
+        }
+
+        public SimpleEntityQuery<SimpleGroundItem> getGroQuery() {
+            return ClientContext.instance().groundItems.populate().filter(id);
+        }
+
+        public SimpleItemQuery<SimpleItem> getEquipQuery() {
+            return ClientContext.instance().equipment.populate().filter(id);
         }
 
         public void equip() {
@@ -743,7 +790,7 @@ public class Range {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -795,7 +842,7 @@ public class Range {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -846,7 +893,7 @@ public class Range {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -891,7 +938,7 @@ public class Range {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
@@ -929,7 +976,7 @@ public class Range {
             this.id = id;
         }
 
-        public int getId() {
+        public int getID() {
             return id;
         }
 
