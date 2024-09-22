@@ -127,4 +127,22 @@ public class Npcs {
             }
         }
     }
+
+    public enum Clues {
+        URI(1774,1775,1776,6584,7311);
+
+        private int[] ids;
+
+        Clues(int... ids) {
+            this.ids = ids;
+        }
+
+        public int[] getIDs() {
+            return ids;
+        }
+
+        public SimpleEntityQuery<SimpleNpc> getQuery() {
+            return ClientContext.instance().npcs.populate().filter(ids);
+        }
+    }
 }
